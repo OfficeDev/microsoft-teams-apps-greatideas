@@ -19,8 +19,8 @@
     "full": "Great Ideas Curator"
   },
   "description": {
-    "short": "The app encourages innovation by letting users submit and share ideas with peers",
-    "full": "Great Ideas app is an innovation challenge system that lets employees submit and share ideas and insights, with voting right within Microsoft Teams. Employees can submit an idea in a selected category to be visible to all colleagues and leadership, ideas can be voted upon and a leader board of best idea contributors can be shared."
+    "short": "This is meant for curators who take an idea through its lifecycle in the app.",
+    "full": "Great Ideas curator app is meant for curators who are stewards of ideas across categories and are SMEs who take an idea through its lifecycle in the organization. They take care of triaging the ideas and open them up for voting through the app."
   }
   "accentColor": "#7BFFFE",
   "bots": [
