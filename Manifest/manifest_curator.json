@@ -1,0 +1,111 @@
+﻿{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.5/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.5",
+  "version": "1.0.0",
+  "id": "a1961453-dc9d-4e37-84cf-6173be4db120",
+  "packageName": "com.microsoft.teams.submitidea",
+  "developer": {
+    "name": "<company name>",
+    "websiteUrl": "<website url>",
+    "privacyUrl": "<website url>/privacy",
+    "termsOfUseUrl": "<website url>/termsofuse"
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "name": {
+    "short": "Great Ideas Curator",
+    "full": "Great Ideas Curator"
+  },
+  "description": {
+    "short": "This is meant for curators who take an idea through its lifecycle in the app.",
+    "full": "Great Ideas curator app is meant for curators who are stewards of ideas across categories and are SMEs who take an idea through its lifecycle in the organization. They take care of triaging the ideas and open them up for voting through the app."
+  }
+  "accentColor": "#7BFFFE",
+  "bots": [
+    {
+      "botId": "<<botId>>",
+      "scopes": [
+        "team"
+      ],
+      "supportsFiles": false,
+      "isNotificationOnly": false
+    }
+  ],
+  "configurableTabs": [
+    {
+      "configurationUrl": "<<azureFdUrl>>/curator-config-tab",
+      "canUpdateConfiguration": true,
+      "scopes": [
+        "team"
+      ]
+    }
+  ],
+  "composeExtensions": [
+    {
+      "botId": "<<botId>>",
+      "canUpdateConfiguration": false,
+      "commands": [
+        {
+          "id": "AllIdeas",
+          "type": "query",
+          "title": "All",
+          "description": "Search all ideas",
+          "parameters": [
+            {
+              "name": "searchText",
+              "title": "Search",
+              "description": "Search"
+            }
+          ],
+          "context": [
+            "compose"
+          ],
+          "initialRun": true
+        },
+        {
+          "id": "Pending",
+          "type": "query",
+          "title": "Submitted",
+          "description": "Search pending ideas",
+          "parameters": [
+            {
+              "name": "searchText",
+              "title": "Search",
+              "description": "Search"
+            }
+          ],
+          "context": [
+            "compose"
+          ],
+          "initialRun": true
+        },
+        {
+          "id": "Approved",
+          "type": "query",
+          "title": "Posted",
+          "description": "Search approved ideas",
+          "parameters": [
+            {
+              "name": "searchText",
+              "title": "Search",
+              "description": "Search"
+            }
+          ],
+          "context": [
+            "compose"
+          ],
+          "initialRun": true
+        }
+      ]
+    }
+  ],
+  "validDomains": [
+   "<<appDomain>>"
+  ],
+  "webApplicationInfo": {
+    "id": "<<botId>>",
+    "resource": "<ApplicationIdURI>"
+  }
+}

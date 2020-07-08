@@ -1,0 +1,75 @@
+﻿.form-label {
+    font-size: 12px;
+}
+
+.input-label-space-between {
+    margin-top: 0.3rem;
+}
+
+.tags-label-wrapper {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    margin-top: 1rem !important;
+    height: 2.67rem !important;
+    margin-right: 0.5rem !important;
+}
+
+.tags-label-wrapper-dark {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    margin-top: 1rem !important;
+    height: 2.67rem !important;
+    margin-right: 0.5rem !important;
+    background-color: #484644 !important;
+    color: #ffffff !important;
+}
+
+.tags-flex {
+    height: 2.5rem;
+    position: relative;
+    width: inherit;
+    margin-bottom: 0.3rem;
+}
+
+.tag-text-form {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 15rem;
+    white-space: nowrap;
+}
+
+.submit-idea-success-message-container {
+    margin-left: 5.5rem;
+    margin-right: 5.5rem;
+    height: 100vh;
+}
+
+.margin-space {
+    margin-top: 20rem !important;
+}
+.space {
+    margin: 1rem;
+    text-align: center !important;
+}
+
+.margin-top {
+    margin-top: 2rem;
+}
+
+.top-spacing {
+    margin-top: 1.63rem;
+}
+
+@media only screen and (max-width: 650px) {
+    .space {
+        margin: -0.5rem !important;
+    }
+
+    .margin-space {
+        margin-top: 15rem !important;
+    }
+}

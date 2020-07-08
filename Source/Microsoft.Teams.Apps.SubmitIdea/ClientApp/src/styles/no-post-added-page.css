@@ -1,0 +1,30 @@
+﻿.no-post-added-container
+{
+    text-align:center;
+    justify-content:center;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.no-data-preview {
+    width: 100%;
+    font-weight: bold;
+    margin-top: 1rem;
+    justify-content: center;
+}
+
+.add-new-post {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.add-new-post-btn{
+    margin-top:2rem;
+}
+
+.app-logo {
+    margin-top: 8rem;
+}
+
+@media (max-width: 1170px) {
+}

@@ -1,0 +1,61 @@
+﻿{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.5/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.5",
+  "version": "1.0.0",
+  "id": "3318faee-0b97-4ee9-95a2-efbc13fa4f7c",
+  "packageName": "com.microsoft.teams.greatideas",
+  "developer": {
+    "name": "<company name>",
+    "websiteUrl": "<website url>",
+    "privacyUrl": "<website url>/privacy",
+    "termsOfUseUrl": "<website url>/termsofuse"
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "name": {
+    "short": "Great Ideas",
+    "full": "Great Ideas"
+  },
+  "description": {
+    "short": "The app encourages innovation by letting users submit and share ideas with peers",
+    "full": "Great Ideas app is an innovation challenge system that lets employees submit and share ideas and insights, with voting right within Microsoft Teams. Employees can submit an idea in a selected category to be visible to all colleagues and leadership, ideas can be voted upon and a leader board of best idea contributors can be shared."
+  },
+  "accentColor": "#7BFFFE",
+  "bots": [
+    {
+      "botId": "<<botId>>",
+      "scopes": [
+        "personal",
+        "team"
+      ],
+      "supportsFiles": false,
+      "isNotificationOnly": false
+    }
+  ],
+  "configurableTabs": [
+    {
+      "configurationUrl": "<<azureFdUrl>>/user-config-tab",
+      "canUpdateConfiguration": true,
+      "scopes": [ "team" ]
+    }
+  ],
+  "staticTabs": [
+    {
+      "entityId": "<A unique identifier for the entity that the tab displays>",
+      "name": "All ideas",
+      "contentUrl": "<<azureFdUrl>>/ideas",
+      "scopes": [
+        "personal"
+      ]
+    }
+  ],
+  "validDomains": [
+    "<<appDomain>>"
+  ],
+  "webApplicationInfo": {
+    "id": "<<botId>>",
+    "resource": "<ApplicationIdURI>"
+  }
+}
