@@ -3,51 +3,68 @@ page_type: sample
 languages:
 - csharp
 products:
-- dotnet
-description: "Add 150 character max description"
-urlFragment: "update-this-to-unique-url-stub"
+- office-teams
+description: Great Ideas app promotes innovation by encouraging users to submit and share their ideas with peers.
+urlFragment: microsoft-teams-apps-greatideas
 ---
 
-# Official Microsoft Sample
+# Great Ideas App Template
 
-<!-- 
-Guidelines on README format: https://review.docs.microsoft.com/help/onboard/admin/samples/concepts/readme-template?branch=master
+| [Documentation](https://github.com/OfficeDev/microsoft-teams-apps-greatideas/wiki/Home) | [Deployment guide](https://github.com/OfficeDev/microsoft-teams-apps-greatideas/wiki/Deployment-Guide) | [Architecture](https://github.com/OfficeDev/microsoft-teams-apps-greatideas/wiki/Solution-Overview) |
+| ---- | ---- | ---- |
 
-Guidance on onboarding samples to docs.microsoft.com/samples: https://review.docs.microsoft.com/help/onboard/admin/samples/process/onboarding?branch=master
+Most enterprises run innovation contests from time to time generally or on specific topics/themes to crowdsource new, unique ideas from their employees. Great Ideas app is a result of this trend. While innovation contests are run only for a specific period, this app is meant to enable enterprise employees to route their best ideas from anywhere, at any time to rightly qualified, designated personnel in the company – thereby kicking off a culture of round the year innovation. This app template is for employees, team leaders and organizational leaders who believe in democratizing idea generation.
 
-Taxonomies for products and languages: https://review.docs.microsoft.com/new-hope/information-architecture/metadata/taxonomies?branch=master
--->
+Great Ideas app is an “innovation challenge” system that lets employees submit and share ideas and insights, with voting right within Microsoft Teams. Employees can submit an innovative idea in a selected category to be visible to all colleagues and leadership, ideas can be voted upon and a leader board of best idea contributors can be shared. 
 
-Give a short description for your sample here. What does it do and why is it important?
+## Key features
 
-## Contents
+- Ideate and collaborate with your peers
+- Gamifying employee engagement and encouragement using the concept of upvotes
+- Proper governance and reviews of Ideas by a team of curators to ensure they are appropriately clubbed under categories relevant to the organization. 
+	
+  
+The app workflow is described below:
+1. Discover new ideas that have been created by your peers in the organization in the All Ideas tab
 
-Outline the file contents of the repository. It helps users navigate the codebase, build configuration and any related assets.
+2. Search for ideas based on your subjects of interest using tags etc. and Upvote them
 
-| File/folder       | Description                                |
-|-------------------|--------------------------------------------|
-| `src`             | Sample source code.                        |
-| `.gitignore`      | Define what to ignore at commit time.      |
-| `CHANGELOG.md`    | List of changes to the sample.             |
-| `CONTRIBUTING.md` | Guidelines for contributing to the sample. |
-| `README.md`       | This README file.                          |
-| `LICENSE`         | The license for the sample.                |
+3. Collaborate using the Messaging extension, share the ideas you find interesting to garner more interest from your peers
 
-## Prerequisites
+4. Install the app in a team and set up your monthly or weekly digest as per your preferences to stay updated on any new ideas that have been submitted
 
-Outline the required components and tools that a user might need to have on their machine in order to run the sample. This can be anything from frameworks, SDKs, OS versions or IDE releases.
+5. Configure the tab in a Channel filtered based on tags to look for any ideas that are based on the topics or areas of expertise relevant to your team
 
-## Setup
 
-Explain how to prepare the sample once the user clones or downloads the repository. The section should outline every step necessary to install dependencies and set up any settings (for example, API keys and output folders).
 
-## Running the sample
+![All Ideas](https://github.com/OfficeDev/microsoft-teams-apps-greatideas/wiki/Images/All_Ideas.png)
 
-Outline step-by-step instructions to execute the sample and see its output. Include steps for executing the sample from the IDE, starting specific services in the Azure portal or anything related to the overall launch of the code.
+![Curator tab](https://github.com/OfficeDev/microsoft-teams-apps-greatideas/wiki/Images/Curator_Tab.png)
 
-## Key concepts
+![Digest preferences](https://github.com/OfficeDev/microsoft-teams-apps-greatideas/wiki/Images/Digest_preferences.png)
 
-Provide users with more context on the tools and services used in the sample. Explain some of the code that is being used and how services interact with each other.
+## Legal notice
+
+This app template is provided under the [MIT License](https://github.com/OfficeDev/microsoft-teams-apps-greatideas/blob/master/LICENSE) terms.  In addition to these terms, by using this app template you agree to the following:
+
+-	You are responsible for complying with all applicable privacy and security regulations related to use, collection and handling of any personal data by your app.  This includes complying with all internal privacy and security policies of your organization if your app is developed to be sideloaded internally within your organization.
+
+-	Where applicable, you may be responsible for data related incidents or data subject requests for data collect through your app.
+
+-	Any trademarks or registered trademarks of Microsoft in the United States and/or other countries and logos included in this repository are the property of Microsoft, and the license for this project does not grant you rights to use any Microsoft names, logos or trademarks outside of this repository.  Microsoft’s general trademark guidelines can be found [here](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general.aspx).
+
+-	Use of this template does not guarantee acceptance of your app to the Teams app store.  To make this app available in the Teams app store, you will have to comply with the [submission and validation process](https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/deploy-and-publish/appsource/publish), and all associated requirements such as including your own privacy statement and terms of use for your app.
+
+
+## Getting started
+
+Begin with the [Solution overview](https://github.com/OfficeDev/microsoft-teams-apps-greatideas/wiki/Solution-overview) to read about what the app does and how it works.
+
+When you're ready to try out Great Ideas app, or to use it in your own organization, follow the steps in the [Deployment guide](https://github.com/OfficeDev/microsoft-teams-apps-greatideas/wiki/Deployment-guide).
+
+#### Known issue:
+The app is currently not supported on iOS devices. We are actively working on fixing the issue and will update the repo as soon as it is available
+
 
 ## Contributing
 
