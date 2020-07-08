@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>c7ff051a-3f08-456f-8e4c-0e4ddd0bbe4f</UserSecretsId>
+	<LangVersion>latest</LangVersion>
+	<SpaRoot>ClientApp\</SpaRoot>
+	<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+	<TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="AdaptiveCards" Version="1.2.3" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.12.0" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.AzureAD.UI" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Azure.Search" Version="10.1.0" />
+    <PackageReference Include="Microsoft.Azure.Search.Data" Version="10.1.0" />
+    <PackageReference Include="Microsoft.Azure.Search.Service" Version="10.1.0" />
+    <PackageReference Include="Microsoft.Bot.Builder.Azure" Version="4.2.2" />
+    <PackageReference Include="Microsoft.Bot.Builder.Integration.AspNet.Core" Version="4.9.3" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.ApplicationInsights" Version="2.12.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.10" />
+    <PackageReference Include="Polly" Version="7.2.0" />
+    <PackageReference Include="Polly.Contrib.WaitAndRetry" Version="1.1.0" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="WindowsAzure.Storage" Version="9.3.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="wwwroot\**" />
+    <Content Remove="$(SpaRoot)**" />
+    <Content Remove="wwwroot\**" />
+    <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+    </ItemGroup>
+  <PropertyGroup>
+    <CodeAnalysisRuleSet>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), .gitignore))\Build\Analyzer.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\$(Configuration)\$(Platform)\$(AssemblyName).xml</DocumentationFile>
+    <NeutralLanguage>en</NeutralLanguage>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="wwwroot\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), .gitignore))\Build\stylecop.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="wwwroot\Artifacts\applicationLogo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\Artifacts\blogIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\Artifacts\bookIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\Artifacts\carouselImage1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\Artifacts\carouselImage2.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\Artifacts\carouselImage3.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\Artifacts\categoryIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\Artifacts\helpIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\Artifacts\peopleAvatar.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\Artifacts\podcastIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\Artifacts\rejectIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\Artifacts\successIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\Artifacts\videoIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\Artifacts\otherIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\Artifacts\blogTypeDot.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\Artifacts\bookTypeDot.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\Artifacts\podcastTypeDot.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\Artifacts\videoTypeDot.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\Artifacts\otherTypeDot.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\Artifacts\voteIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\Artifacts\voteIconME.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Resources\Strings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Strings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
+    <!-- Ensure Node.js is installed -->
+    <Exec Command="node --version" ContinueOnError="true">
+        <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+        <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
+        <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+    </Target>
+
+    <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+        <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+        <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
+        <Exec Condition=" '$(KuduDeployment)' == '' " WorkingDirectory="$(SpaRoot)" Command="npm install --no-audit" />
+        <Message Importance="high" Text="Building the client app using 'npm'. This may take several minutes..." />
+        <Exec Condition=" '$(KuduDeployment)' == '' " WorkingDirectory="$(SpaRoot)" Command="npm run build" />
+        <Message Importance="high" Text="Finished building the client app" />
+
+        <!-- Include the newly-built files in the publish output -->
+        <ItemGroup>
+            <DistFiles Include="$(SpaRoot)build\**; $(SpaRoot)build-ssr\**" />
+            <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+                <RelativePath>%(DistFiles.Identity)</RelativePath>
+                <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+                </ResolvedFileToPublish>
+        </ItemGroup>
+    </Target>
+
+    <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+</Project>
