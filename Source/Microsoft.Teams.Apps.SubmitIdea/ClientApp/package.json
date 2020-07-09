@@ -21,7 +21,9 @@
     "react-dom": "16.13.1",
     "react-infinite-scroller": "^1.2.4",
     "react-i18next": "11.5.0",
-    "react-router-dom": "5.2.0"
+    "react-router-dom": "5.2.0",
+    "react-scripts": "3.4.1",
+    "typescript": "3.9.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -52,8 +54,6 @@
     "@types/node": "^12.12.21",
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.4",
-    "@types/react-router-dom": "^4.3.3",
-    "react-scripts": "3.4.1",
-    "typescript": "3.9.3"
+    "@types/react-router-dom": "^4.3.3"
   }
 }
