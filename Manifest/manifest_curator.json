@@ -3,7 +3,7 @@
   "manifestVersion": "1.5",
   "version": "1.0.0",
   "id": "a1961453-dc9d-4e37-84cf-6173be4db120",
-  "packageName": "com.microsoft.teams.submitidea",
+  "packageName": "com.microsoft.teams.greatideas.curator",
   "developer": {
     "name": "<company name>",
     "websiteUrl": "<website url>",
@@ -21,7 +21,7 @@
   "description": {
     "short": "This is meant for curators who take an idea through its lifecycle in the app.",
     "full": "Great Ideas curator app is meant for curators who are stewards of ideas across categories and are SMEs who take an idea through its lifecycle in the organization. They take care of triaging the ideas and open them up for voting through the app."
-  }
+  },
   "accentColor": "#7BFFFE",
   "bots": [
     {
@@ -102,7 +102,7 @@
     }
   ],
   "validDomains": [
-   "<<appDomain>>"
+    "<<appDomain>>"
   ],
   "webApplicationInfo": {
     "id": "<<botId>>",
