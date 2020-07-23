@@ -121,6 +121,12 @@
     margin-left: 2.2rem;
 }
 
+.icon-size {
+    margin-top: 0.4rem;
+    width: 1.33rem !important;
+    height: 1.67rem !important;
+}
+
 @media only screen and (max-width: 650px) {
     .mobile-button {
         width: auto;

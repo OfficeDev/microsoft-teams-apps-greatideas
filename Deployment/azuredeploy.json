@@ -116,6 +116,13 @@
         "description": "Location for all resources."
       }
     },
+    "cacheDuration": {
+      "type": "int",
+      "defaultValue": 60,
+      "metadata": {
+        "description": "Number of minutes to cache user team membership details in memory."
+      }
+    },
     "searchServiceSku": {
       "type": "string",
       "allowedValues": [
@@ -238,7 +245,7 @@
               "value": "[parameters('tenantId')]"
             },
             {
-              "name": "App:TeamLink",
+              "name": "App:CuratorTeamLink",
               "value": "[parameters('teamLink')]"
             },
             {
@@ -248,6 +255,10 @@
             {
               "name": "RetryPolicy:retryCount",
               "value": "2"
+            },
+            {
+              "name": "Cache:DurationInMinutes",
+              "value": "[parameters('cacheDuration')]"
             },
             {
               "name": "AzureAd:Instance",

@@ -230,7 +230,7 @@ class ManageCategory extends React.Component<WithTranslation, ICategoryState> {
                             {this.state.categories.length === 0 &&
                                 <Flex gap="gap.small" className="margin-top-medium" >
                                     <Flex.Item>
-                                        <Image className="preview-image-icon" fluid src={this.appUrl + "/Artifacts/helpIcon.png"} />
+                                        <Image className="icon-size" fluid src={this.appUrl + "/Artifacts/helpIcon.png"} />
                                     </Flex.Item>
                                     <Flex.Item>
                                         <Flex column gap="gap.small" >

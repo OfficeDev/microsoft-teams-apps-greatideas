@@ -43,7 +43,7 @@
   ],
   "staticTabs": [
     {
-      "entityId": "<A unique identifier for the entity that the tab displays>",
+      "entityId": "ideas",
       "name": "All ideas",
       "contentUrl": "<<azureFdUrl>>/ideas",
       "scopes": [
