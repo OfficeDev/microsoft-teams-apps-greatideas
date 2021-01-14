@@ -8,9 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.Teams.Apps.SubmitIdea
-{
-
+namespace Microsoft.Teams.Apps.SubmitIdea.Resources {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -60,7 +61,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Great Ideas.
+        ///   Looks up a localized string similar to Zihni Sinir Fikirler.
         /// </summary>
         public static string ApplicationName {
             get {
@@ -69,10 +70,9 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;b&gt;Discover&lt;/b&gt; content by Tags, Type, Suggested by and sort by Popularity/latest based on your interest. &lt;br /&gt;
-        ///&lt;b&gt;Add content&lt;/b&gt; to your private list and visit later to learn and grow.
-        /// &lt;br /&gt;
-        ///&lt;b&gt;Share&lt;/b&gt; content that influenced or inspired you with your co-workers..
+        ///   Looks up a localized string similar to İçerikleri Etiket, Tür, ve Önerilere göre &lt;b&gt;keşfedin&lt;/b&gt; ve ilgi alanınızda en yeni çıkanlar ya da Popülerliğe göre sıralayın. &lt;br /&gt;
+        ///Şahsi listenize &lt;b&gt;içerik ekleyin&lt;/b&gt; öğrenmek ve kendinizi gelistirmek için daha sonra ziyaret edin. &lt;br /&gt;
+        ///Sizi etkileyen veya ilham veren içeriği iş arkadaşlarınızla &lt;b&gt;paylaşın.&lt;/b&gt;.
         /// </summary>
         public static string CarouselCard1Text {
             get {
@@ -81,7 +81,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Get a &lt;b&gt;digest of content&lt;/b&gt; that are added based on your preference in a channel to stay updated on the topics..
+        ///   Looks up a localized string similar to Konular hakkında güncel kalmak için bir kanala tercihinize göre eklenen bir &lt;b&gt; içerik özeti &lt;/b&gt; alın..
         /// </summary>
         public static string CarouselCard2Text {
             get {
@@ -90,9 +90,8 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;b&gt;Add&lt;/b&gt; {0} to the Channel Tab based on tags to learn together with your team.
-        ///&lt;br /&gt;
-        ///&lt;b&gt;Share&lt;/b&gt; your favorite reads in a channel or chat to help your Peers grow..
+        ///   Looks up a localized string similar to Ekibinizle birlikte öğrenmek için etiketlere göre Kanal Sekmesine &lt;b&gt; ekleyin &lt;/b&gt; {0}.&lt;br /&gt;
+        ///En sevdiğiniz yazıları arkadaşlarınızın gelişmesine yardımcı olmak için bir kanalda veya sohbette &lt;b&gt; paylaşın &lt;/b&gt;..
         /// </summary>
         public static string CarouselCard3Text {
             get {
@@ -101,7 +100,16 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to **Category:**.
+        ///   Looks up a localized string similar to Kategori.
+        /// </summary>
+        public static string CategoryNameText {
+            get {
+                return ResourceManager.GetString("CategoryNameText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to **Kategori:**.
         /// </summary>
         public static string CategoryText {
             get {
@@ -110,7 +118,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to * Configure digest.
+        ///   Looks up a localized string similar to * Özeti ayarlayın.
         /// </summary>
         public static string ConfigureDigestBulletText {
             get {
@@ -119,7 +127,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Configure digest.
+        ///   Looks up a localized string similar to Özeti ayarlayın.
         /// </summary>
         public static string ConfigureDigestButtonText {
             get {
@@ -128,7 +136,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A great idea can come from anyone, right? Let&apos;s get started!.
+        ///   Looks up a localized string similar to Zihni sinir bir fikir herkesten gelebilir değil mi? Haydi başlayalım!.
         /// </summary>
         public static string ContentText {
             get {
@@ -137,7 +145,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hello, I am Great Ideas bot, and I&apos;m here to help your org innovate by encouraging everyone to submit and vote on ideas..
+        ///   Looks up a localized string similar to Merhaba ben Zihni Sinir Fikirler botuyum ve herkesi fikir göndermeye ve oylamaya teşvik ederek kuruluşunuzun yenilik yapmasına yardımcı olmak için buradayım..
         /// </summary>
         public static string CuratorWelcomeCardContent {
             get {
@@ -146,7 +154,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can set digest preference by selecting the frequency and tab you wants to follow..
+        ///   Looks up a localized string similar to Takip etmek istediğiniz sıklığı ve sekmeyi seçerek özet tercihlerinizi ayarlayabilirsiniz..
         /// </summary>
         public static string DigestPreferenceCardContent {
             get {
@@ -155,7 +163,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can configure more topics or different ones as well as change how often the digest is posted..
+        ///   Looks up a localized string similar to Daha fazla konuyu veya farklı konuları ayarlayabilir ve ayrıca özetin ne sıklıkta gönderileceğini değiştirebilirsiniz..
         /// </summary>
         public static string DigestPreferenceCardHeaderText {
             get {
@@ -164,7 +172,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Configure digest settings.
+        ///   Looks up a localized string similar to Özet seçeneklerinizi ayarlayın.
         /// </summary>
         public static string DigestPreferenceTitleText {
             get {
@@ -173,7 +181,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Something went wrong. Try again in a few minutes..
+        ///   Looks up a localized string similar to Bir şeyler yanlış gitti. Birkaç dakika sonra tekrar deneyin..
         /// </summary>
         public static string ErrorMessage {
             get {
@@ -182,7 +190,16 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unexpected tenant id found..
+        ///   Looks up a localized string similar to Ekleyen.
+        /// </summary>
+        public static string IdeatorLabelText {
+            get {
+                return ResourceManager.GetString("IdeatorLabelText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Beklenmeyen kiracı kimliği bulundu..
         /// </summary>
         public static string InvalidTenantText {
             get {
@@ -191,7 +208,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your monthly digest.
+        ///   Looks up a localized string similar to Aylık özetiniz.
         /// </summary>
         public static string NotificationCardMonthlyTitleText {
             get {
@@ -200,7 +217,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your weekly digest.
+        ///   Looks up a localized string similar to Haftalık özetiniz.
         /// </summary>
         public static string NotificationCardWeeklyTitleText {
             get {
@@ -209,7 +226,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to * Submit an idea - Lets you submit your idea.
+        ///   Looks up a localized string similar to * Bir fikir gönderin - Fikrinizi göndermenizi sağlar.
         /// </summary>
         public static string SubmitAnIdeaBulletPoint {
             get {
@@ -218,7 +235,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Submit idea.
+        ///   Looks up a localized string similar to Fikir gönder.
         /// </summary>
         public static string SubmitAnIdeaButtonText {
             get {
@@ -227,7 +244,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Submit an idea.
+        ///   Looks up a localized string similar to Fikir gönder.
         /// </summary>
         public static string SubmitIdeaTitleText {
             get {
@@ -236,7 +253,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tags.
+        ///   Looks up a localized string similar to Etiketler.
         /// </summary>
         public static string TagsLabelText {
             get {
@@ -245,7 +262,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Great Ideas.
+        ///   Looks up a localized string similar to Zihni Sinir Fikirler.
         /// </summary>
         public static string TaskModuleTitleText {
             get {
@@ -254,7 +271,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I don&apos;t know that command. Try typing command:
+        ///   Looks up a localized string similar to Bu komutu bilmiyorum. Şu komutlardan birini yazmayı deneyin:
         ///-Preferences , -Help.
         /// </summary>
         public static string UnsupportedBotCommandText {
@@ -264,7 +281,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I don&apos;t know that command..
+        ///   Looks up a localized string similar to Bu komutu bilmiyorum..
         /// </summary>
         public static string UnsupportedBotPersonalCommandText {
             get {
@@ -273,7 +290,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to * All ideas - Lets you view and upvote your colleagues&apos; ideas.
+        ///   Looks up a localized string similar to * Tüm fikirler - Meslektaşlarınızın fikirlerini görüntülemenizi ve oy vermenizi sağlar.
         /// </summary>
         public static string ViewIdeaBulletPoint {
             get {
@@ -282,7 +299,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hello, I am Great Ideas bot, and I&apos;m here to help your org innovate by encouraging everyone to submit and vote on ideas..
+        ///   Looks up a localized string similar to Merhaba ben Zihni Sinir Fikirler botuyum ve herkesi fikir göndermeye ve oylamaya teşvik ederek kuruluşunuzun yenilik yapmasına yardımcı olmak için buradayım..
         /// </summary>
         public static string WelcomeCardContent {
             get {
@@ -291,7 +308,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Welcome!.
+        ///   Looks up a localized string similar to Merhaba!.
         /// </summary>
         public static string WelcomeCardTitle {
             get {
@@ -300,7 +317,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Here are the commands you can type and what they do:.
+        ///   Looks up a localized string similar to İşte yazabileceğiniz komutlar ve yaptıkları:.
         /// </summary>
         public static string WelcomeSubHeaderText {
             get {
@@ -309,7 +326,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hello, I am Great Ideas bot, and I&apos;m here to help your org innovate by encouraging everyone to submit and vote on ideas..
+        ///   Looks up a localized string similar to Merhaba ben Zihni Sinir Fikirler botuyum ve herkesi fikir göndermeye ve oylamaya teşvik ederek kuruluşunuzun yenilik yapmasına yardımcı olmak için buradayım..
         /// </summary>
         public static string WelcomeTeamCardContent {
             get {
