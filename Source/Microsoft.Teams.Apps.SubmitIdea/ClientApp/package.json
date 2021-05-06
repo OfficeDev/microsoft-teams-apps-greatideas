@@ -5,8 +5,8 @@
   "dependencies": {
     "@fluentui/react": "^7.115.4",
     "@fluentui/react-icons-northstar": "^0.49.0",
-    "@microsoft/applicationinsights-web": "2.5.10",
-    "@microsoft/applicationinsights-react-js": "3.0.5",
+    "@microsoft/applicationinsights-web": "2.6.1",
+    "@microsoft/applicationinsights-react-js": "3.1.0",
     "@fluentui/react-northstar": "^0.49.0",
     "@microsoft/teams-js": "1.6.0",
     "@uifabric/icons": "7.3.47",
