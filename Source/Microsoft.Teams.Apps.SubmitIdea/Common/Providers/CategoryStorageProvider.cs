@@ -197,10 +197,10 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
 
                 categories.ForEach(postCondition =>
                 {
-                    combinedCaregoryIdsFilter.Append($"{postCondition} {"or"} ");
+                    combinedCaregoryIdsFilter.Append((string)$"{postCondition} {"or"} ");
                 });
 
-                combinedCaregoryIdsFilter.Append($"{categoryIdConditions.Last()}");
+                combinedCaregoryIdsFilter.Append((string)$"{categoryIdConditions.Last()}");
 
                 return combinedCaregoryIdsFilter.ToString();
             }

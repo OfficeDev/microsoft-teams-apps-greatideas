@@ -18,7 +18,7 @@ interface IUserAvatarProps extends WithTranslation {
 }
 
 
-class UserAvatar extends React.Component<IUserAvatarProps> {
+class UserAvatar extends React.Component<IUserAvatarProps |any> {
     localize: TFunction;
     constructor(props: IUserAvatarProps) {
         super(props);
@@ -41,4 +41,4 @@ class UserAvatar extends React.Component<IUserAvatarProps> {
     }
 }
 
-export default withTranslation()(UserAvatar)
+export default UserAvatar

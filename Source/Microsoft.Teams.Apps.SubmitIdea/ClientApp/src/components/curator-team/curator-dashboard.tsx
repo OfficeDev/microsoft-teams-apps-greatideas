@@ -31,10 +31,10 @@ export interface IDashboardState {
     screenWidth: number;
 }
 
-const browserHistory = createBrowserHistory({ basename: "" });
+const browserHistory = createBrowserHistory();
 
 class CuratorTeamDashboard extends React.Component<WithTranslation, IDashboardState> {
-    localize: TFunction
+    localize: TFunction|any
     telemetry?: string = "";
     teamId?: string | null;
     userObjectId?: string = "";

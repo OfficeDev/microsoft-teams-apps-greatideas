@@ -23,10 +23,10 @@ interface IState {
     submitLoading: boolean
 }
 
-const browserHistory = createBrowserHistory({ basename: "" });
+const browserHistory = createBrowserHistory();
 
 class ViewIdea extends React.Component<WithTranslation, IState> {
-    localize: TFunction;
+    localize: TFunction|any;
     userObjectId: string = "";
     appInsights: any;
     telemetry: string | undefined = "";

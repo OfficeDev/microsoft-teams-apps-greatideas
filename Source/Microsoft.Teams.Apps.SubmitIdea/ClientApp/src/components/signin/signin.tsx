@@ -1,11 +1,10 @@
 ﻿import * as React from "react";
-import { RouteComponentProps } from "react-router-dom";
 import { Text, Button } from "@fluentui/react-northstar";
 import * as microsoftTeams from "@microsoft/teams-js";
 import { useTranslation } from 'react-i18next';
 import "../../styles/signin.css";
 
-const SignInPage: React.FunctionComponent<RouteComponentProps> = props => {
+const SignInPage: React.FunctionComponent<any> = props => {
     const localize = useTranslation().t;
     const errorMessage = "Please sign in to continue.";
 

@@ -19,7 +19,7 @@ import { ICategoryDetails } from "../models/category";
 import "../../styles/curator.css"
 let moment = require('moment');
 
-const browserHistory = createBrowserHistory({ basename: "" });
+const browserHistory = createBrowserHistory();
 
 interface ICategoryState {
     loader: boolean;

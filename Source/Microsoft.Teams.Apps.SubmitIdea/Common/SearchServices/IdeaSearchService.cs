@@ -287,7 +287,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.SearchServices
                 return;
             }
 
-            var index = new Index()
+            var index = new Microsoft.Azure.Search.Models.Index()
             {
                 Name = Constants.TeamIdeaIndexName,
                 Fields = FieldBuilder.BuildForType<IdeaEntity>(),
