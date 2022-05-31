@@ -12,7 +12,6 @@
     <PackageReference Include="AdaptiveCards" Version="2.7.3" />
     <PackageReference Include="Microsoft.AspNetCore.App" version="2.2.8" />
     <PackageReference Include="Azure.Storage.Blobs" Version="12.12.0" />
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.20.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.AzureAD.UI" Version="6.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Localization" Version="2.2.0" />
