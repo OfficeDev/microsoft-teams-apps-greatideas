@@ -24,8 +24,6 @@ import ErrorPage from "../components/error-page";
 export const AppRoute: React.FunctionComponent<{}> = () => {
 
     return (
-        <Suspense fallback={<div className="container-div"><div className="container-subdiv"></div></div>}>
-            <BrowserRouter>
                 <Routes>
                     <Route path="/ideas" element={<IdeaWrapperPage />} />
                     <Route path="/team-ideas" element={<TeamsIdeaWrapperPage />} />
@@ -43,7 +41,5 @@ export const AppRoute: React.FunctionComponent<{}> = () => {
                     <Route path="/user-config-tab" element={<UserTeamConfigTab />} />
                     <Route element={<Redirect />} />
                 </Routes>
-            </BrowserRouter>
-        </Suspense>
     );
 }
