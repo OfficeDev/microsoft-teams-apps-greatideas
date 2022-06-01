@@ -12,7 +12,6 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Helpers
     using System.Threading.Tasks;
     using Microsoft.Bot.Builder;
     using Microsoft.Bot.Builder.Integration.AspNet.Core;
-    using Microsoft.Bot.Connector.Authentication;
     using Microsoft.Bot.Schema;
     using Microsoft.Extensions.Localization;
     using Microsoft.Extensions.Logging;
@@ -184,7 +183,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Helpers
             Attachment cardToSend,
             string serviceUrl)
         {
-            MicrosoftAppCredentials.TrustServiceUrl(serviceUrl);
+            /*MicrosoftAppCredentials.TrustServiceUrl(serviceUrl);*/
             string teamsChannelId = teamPreferenceEntity.TeamId;
 
             var conversationReference = new ConversationReference()
@@ -202,7 +201,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Helpers
             {
                 try
                 {
-                    await ((BotFrameworkAdapter)this.adapter).ContinueConversationAsync(
+                    await ((CloudAdapter)this.adapter).ContinueConversationAsync(
                         this.botOptions.Value.MicrosoftAppId,
                         conversationReference,
                         async (conversationTurnContext, conversationCancellationToken) =>

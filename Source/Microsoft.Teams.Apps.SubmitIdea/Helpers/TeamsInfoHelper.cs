@@ -8,7 +8,6 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Helpers
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
-    using Microsoft.Bot.Builder;
     using Microsoft.Bot.Builder.Integration.AspNet.Core;
     using Microsoft.Bot.Builder.Teams;
     using Microsoft.Bot.Connector.Authentication;
@@ -78,12 +77,12 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Helpers
                 ChannelId = Constants.TeamsBotFrameworkChannelId,
                 ServiceUrl = serviceUrl,
             };
-            await ((BotFrameworkAdapter)this.botAdapter).ContinueConversationAsync(
+            await ((CloudAdapter)this.botAdapter).ContinueConversationAsync(
                 this.microsoftAppCredentials.MicrosoftAppId,
                 conversationReference,
                 async (context, token) =>
                 {
-                    teamsChannelAccounts = await TeamsInfo.GetTeamMembersAsync(context, teamId, CancellationToken.None);
+                    teamsChannelAccounts = (IEnumerable<TeamsChannelAccount>)await TeamsInfo.GetPagedTeamMembersAsync(context, teamId, null, 10, token);
                 }, default);
 
             return teamsChannelAccounts;
@@ -111,7 +110,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Helpers
                     ChannelId = Constants.TeamsBotFrameworkChannelId,
                     ServiceUrl = serviceUrl,
                 };
-                await ((BotFrameworkAdapter)this.botAdapter).ContinueConversationAsync(
+                await ((CloudAdapter)this.botAdapter).ContinueConversationAsync(
                     this.microsoftAppCredentials.MicrosoftAppId,
                     conversationReference,
                     async (context, token) =>

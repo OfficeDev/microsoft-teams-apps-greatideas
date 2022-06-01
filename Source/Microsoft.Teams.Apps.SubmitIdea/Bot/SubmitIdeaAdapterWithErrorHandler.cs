@@ -7,7 +7,6 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Bot
     using System;
     using Microsoft.Bot.Builder;
     using Microsoft.Bot.Builder.Integration.AspNet.Core;
-    using Microsoft.Bot.Connector.Authentication;
     using Microsoft.Extensions.Localization;
     using Microsoft.Extensions.Logging;
     using Microsoft.Teams.Apps.SubmitIdea;
@@ -15,7 +14,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Bot
     /// <summary>
     /// A class that implements error handler.
     /// </summary>
-    public class SubmitIdeaAdapterWithErrorHandler : BotFrameworkHttpAdapter
+    public class SubmitIdeaAdapterWithErrorHandler : CloudAdapter
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SubmitIdeaAdapterWithErrorHandler"/> class.
@@ -27,13 +26,13 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Bot
         /// <param name="localizer">The current cultures' string localizer.</param>
         /// <param name="conversationState">A state management object for conversation state.</param>
         public SubmitIdeaAdapterWithErrorHandler(
-            ICredentialProvider credentialProvider,
-            ILogger<BotFrameworkHttpAdapter> logger,
-            IChannelProvider channelProvider,
+            ConfigurationBotFrameworkAuthentication credentialProvider,
+            ILogger<CloudAdapter> logger,
+            ConfigurationBotFrameworkAuthentication channelProvider,
             SubmitIdeaActivityMiddleware submitIdeaActivityMiddleware,
             IStringLocalizer<Strings> localizer,
             ConversationState conversationState = null)
-            : base(credentialProvider, channelProvider: channelProvider, logger: logger)
+            : base(credentialProvider, logger: logger)
         {
             submitIdeaActivityMiddleware = submitIdeaActivityMiddleware ?? throw new ArgumentNullException(nameof(submitIdeaActivityMiddleware));
 

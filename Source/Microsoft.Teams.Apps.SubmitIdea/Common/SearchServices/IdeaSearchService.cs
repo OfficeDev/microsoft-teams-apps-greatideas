@@ -91,7 +91,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.SearchServices
         /// <summary>
         /// Flag: Has Dispose already been called?
         /// </summary>
-        private bool disposed = false;
+        private bool disposed;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IdeaSearchService"/> class.

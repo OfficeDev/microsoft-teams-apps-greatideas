@@ -12,6 +12,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Authentication
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Identity.Web;
     using Microsoft.IdentityModel.Tokens;
 
     /// <summary>
@@ -37,6 +38,9 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Authentication
 
             // This works specifically for single tenant application.
             ValidateAuthenticationConfigurationSettings(configuration);
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddMicrosoftIdentityWebApi(configuration);
 
             services.AddAuthentication(options => { options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme; })
                 .AddJwtBearer(options =>
