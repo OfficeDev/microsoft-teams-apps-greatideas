@@ -232,7 +232,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Bot
                 if (taskModuleRequest.Data == null)
                 {
                     this.telemetryClient.TrackTrace("Request data obtained on task module fetch action is null.");
-                    await turnContext.SendActivityAsync(this.localizer.GetString("WelcomeCardContent"));
+                    await turnContext.SendActivityAsync(this.localizer.GetString("WelcomeCardContent"), cancellationToken: cancellationToken);
 
                     return null;
                 }
@@ -250,7 +250,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Bot
 
                     default:
                         this.logger.LogInformation($"Invalid command for task module fetch activity.Command is : {command} ");
-                        await turnContext.SendActivityAsync(this.localizer.GetString("UnsupportedBotPersonalCommandText"));
+                        await turnContext.SendActivityAsync(this.localizer.GetString("UnsupportedBotPersonalCommandText"), cancellationToken: cancellationToken);
 
                         return null;
                 }
@@ -289,14 +289,14 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Bot
 
                         default:
                             this.logger.LogInformation($"Received a command {command.ToUpperInvariant()} which is not supported.");
-                            await turnContext.SendActivityAsync(MessageFactory.Text(this.localizer.GetString("UnsupportedBotCommandText")));
+                            await turnContext.SendActivityAsync(MessageFactory.Text(this.localizer.GetString("UnsupportedBotCommandText")), CancellationToken.None);
                             break;
                     }
                 }
                 else
                 {
                     this.logger.LogInformation($"Received a command which is not supported.");
-                    await turnContext.SendActivityAsync(MessageFactory.Text(this.localizer.GetString("UnsupportedBotPersonalCommandText")));
+                    await turnContext.SendActivityAsync(MessageFactory.Text(this.localizer.GetString("UnsupportedBotPersonalCommandText")), CancellationToken.None);
                 }
             }
             catch (Exception ex)
@@ -340,7 +340,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Bot
                 if (preferenceData == null)
                 {
                     this.logger.LogInformation($"Request data obtained on task module submit action is null.");
-                    await turnContext.SendActivityAsync(this.localizer.GetString("ErrorMessage"));
+                    await turnContext.SendActivityAsync(this.localizer.GetString("ErrorMessage"), cancellationToken: cancellationToken);
 
                     return null;
                 }
