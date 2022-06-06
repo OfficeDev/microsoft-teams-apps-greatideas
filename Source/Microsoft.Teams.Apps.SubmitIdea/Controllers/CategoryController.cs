@@ -174,7 +174,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Controllers
                 }
 
                 var categories = categoryIds.Split(",");
-                var categoryEntities = await this.storageProvider.GetCategoriesByIdsAsync(categories);
+                var categoryEntities = await this.storageProvider.GetCategoriesByIdsAsync(null, categories);
 
                 // check if the number of categories passed are all available for delete in storage
                 // failure to get any mismatch will lead to bad request

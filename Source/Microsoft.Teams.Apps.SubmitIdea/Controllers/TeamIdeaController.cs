@@ -235,7 +235,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Controllers
 
                 var teamCategoryEntity = await this.teamCategoryStorageProvider.GetTeamCategoriesDataAsync(teamId);
                 var categoryIds = teamCategoryEntity.Categories.Split(';').Where(categoryId => !string.IsNullOrWhiteSpace(categoryId)).Select(categoryId => categoryId.Trim());
-                var categories = await this.categoryStorageProvider.GetCategoriesByIdsAsync(categoryIds);
+                var categories = await this.categoryStorageProvider.GetCategoriesByIdsAsync(null, categoryIds);
                 this.RecordEvent("Team idea unique category- HTTP get call succeeded");
 
                 return this.Ok(categories);

@@ -4,6 +4,7 @@
 
 namespace Microsoft.Teams.Apps.SubmitIdea.Common.Interfaces
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Microsoft.Teams.Apps.SubmitIdea.Models;
@@ -36,9 +37,10 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Interfaces
         /// <summary>
         /// This method is used to get category details by id.
         /// </summary>
+        /// <param name="format"> added formatter</param>
         /// <param name="categoryIds">Semicolon separated unique category ids that needs to be deleted.</param>
         /// <returns>list of all category entities.</returns>
-        Task<IEnumerable<CategoryEntity>> GetCategoriesByIdsAsync(IEnumerable<string> categoryIds);
+        Task<IEnumerable<CategoryEntity>> GetCategoriesByIdsAsync(IFormatProvider format, IEnumerable<string> categoryIds);
 
         /// <summary>
         /// This method is used to fetch category details for a given category Id.

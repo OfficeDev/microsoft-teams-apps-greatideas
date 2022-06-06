@@ -165,7 +165,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Helpers
                 return composeExtensionResult;
             }
 
-            var catagoryDetails = await this.categoryStorageProvider.GetCategoriesByIdsAsync(teamIdeaResults.Select(teamIdea => teamIdea.CategoryId));
+            var catagoryDetails = await this.categoryStorageProvider.GetCategoriesByIdsAsync(null, teamIdeaResults.Select(teamIdea => teamIdea.CategoryId));
 
             foreach (var teamIdea in teamIdeaResults)
             {
