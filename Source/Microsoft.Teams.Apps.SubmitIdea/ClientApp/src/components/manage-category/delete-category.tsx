@@ -13,7 +13,7 @@ import { withTranslation, WithTranslation } from "react-i18next";
 import { CategoryDetails } from "../models/category";
 
 
-const browserHistory = createBrowserHistory({ basename: "" });
+const browserHistory = createBrowserHistory();
 
 interface ICategoryProps extends WithTranslation {
     categories: CategoryDetails[],

@@ -49,16 +49,16 @@ export interface ITagValidationParameters {
     containsSemicolon: boolean;
 }
 
-const browserHistory = createBrowserHistory({ basename: "" });
+const browserHistory = createBrowserHistory();
 
 class SubmitIdea extends React.Component<WithTranslation, IState> {
-    localize: TFunction;
+    localize: TFunction | any;
     userObjectId: string = "";
     upn: string = "";
     items: any;
     appUrl: string = (new URL(window.location.href)).origin;
 
-    constructor(props) {
+    constructor(props: any) {
         super(props);
         this.localize = this.props.t;
         this.state = {
@@ -96,15 +96,15 @@ class SubmitIdea extends React.Component<WithTranslation, IState> {
     }
 
     getA11SelectionMessage = {
-        onAdd: item => {
+        onAdd: (item: any) => {
             if (item) { this.setState({ selectedCategory: item, isCategorySelected: true }) };
             return "";
         },
     };
 
-   /**
-  *Get categories from API
-  */
+    /**
+   *Get categories from API
+   */
     async getCategory() {
         let category = await getAllCategories();
 
@@ -140,8 +140,8 @@ class SubmitIdea extends React.Component<WithTranslation, IState> {
     }
 
     /**
-	*Check if tag is valid
-	*/
+    *Check if tag is valid
+    */
     checkIfTagIsValid = () => {
         let validationParams: ITagValidationParameters = { isEmpty: false, isLengthValid: true, isExisting: false, isTagsCountValid: false, containsSemicolon: false };
         if (this.state.tag.trim() === "") {
@@ -180,9 +180,9 @@ class SubmitIdea extends React.Component<WithTranslation, IState> {
     }
 
     /**
-	*Sets state of tagsList by removing tag using its index.
-	*@param index Index of tag to be deleted.
-	*/
+    *Sets state of tagsList by removing tag using its index.
+    *@param index Index of tag to be deleted.
+    */
     onTagRemoveClick = (index: number) => {
         let tags = this.state.tagsList;
         tags.splice(index, 1);
@@ -212,8 +212,8 @@ class SubmitIdea extends React.Component<WithTranslation, IState> {
     }
 
     /**
-	*Sets state of tagsList by adding new tag.
-	*/
+    *Sets state of tagsList by adding new tag.
+    */
     onTagAddClick = () => {
         if (this.checkIfTagIsValid()) {
             let tagList = this.state.tagsList;
@@ -223,9 +223,9 @@ class SubmitIdea extends React.Component<WithTranslation, IState> {
     }
 
     /**
-	* Adds tag when enter key is pressed
-	* @param event Object containing event details
-	*/
+    * Adds tag when enter key is pressed
+    * @param event Object containing event details
+    */
     onTagKeyDown = (event: any) => {
         if (event.key === 'Enter') {
             this.onTagAddClick();
@@ -233,34 +233,34 @@ class SubmitIdea extends React.Component<WithTranslation, IState> {
     }
 
 
-	/**
-	*Sets tag state.
-	*@param tag Tag string
-	*/
+    /**
+    *Sets tag state.
+    *@param tag Tag string
+    */
     onTagChange = (tag: string) => {
         this.setState({ tag: tag })
     }
 
     /**
-	*Sets title state.
-	*@param title Title string
-	*/
+    *Sets title state.
+    *@param title Title string
+    */
     onTitleChange = (value: string) => {
         this.setState({ ideaTitle: value, isTitlePresent: true });
     }
 
     /**
-	*Sets description state.
-	*@param description Description string
-	*/
+    *Sets description state.
+    *@param description Description string
+    */
     onDescriptionChange = (description: string) => {
         this.setState({ ideaDescription: description, isDescriptionPresent: true });
     }
 
     /**
-	*Sets document link state.
-	*@param tag Tag string
-	*/
+    *Sets document link state.
+    *@param tag Tag string
+    */
     onDocumentChange = (link: string) => {
         this.setState({ documentLink: link })
     }
@@ -286,8 +286,8 @@ class SubmitIdea extends React.Component<WithTranslation, IState> {
     }
 
     /**
-	*Sets state of documentsList by adding new document.
-	*/
+    *Sets state of documentsList by adding new document.
+    */
     onDocumentAddClick = () => {
         if (this.validateLink()) {
             let documentsList = this.state.documentsList;
@@ -378,10 +378,10 @@ class SubmitIdea extends React.Component<WithTranslation, IState> {
         return (<></>);
     }
 
-   /**
-  *Returns text component containing error message for failed name field validation
-  *@param {boolean} isValidLink Indicates whether value is present
-  */
+    /**
+   *Returns text component containing error message for failed name field validation
+   *@param {boolean} isValidLink Indicates whether value is present
+   */
     private getInValidLinkError = (isValidLink: boolean) => {
         if (!isValidLink) {
             return (<Text content={this.localize('inValidLinkError')} className="field-error-message" error size="medium" />);

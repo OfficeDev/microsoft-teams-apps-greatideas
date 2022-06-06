@@ -34,7 +34,7 @@ interface IConfigurePreferencesDetails {
 }
 
 class ConfigurePreferences extends React.Component<IConfigurePreferencesProps, IConfigurePreferencesState> {
-    localize: TFunction;
+    localize: TFunction|any;
     userObjectId: string = "";
     teamId: string = "";
     appInsights: any;

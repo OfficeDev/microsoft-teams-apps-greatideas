@@ -33,10 +33,10 @@ interface IState {
     isIdeaApprovedOrRejected: boolean;
 }
 
-const browserHistory = createBrowserHistory({ basename: "" });
+const browserHistory = createBrowserHistory();
 
 class ViewIdea extends React.Component<WithTranslation, IState> {
-    localize: TFunction;
+    localize: TFunction|any;
     userObjectId: string | undefined = "";
     items: any;
     appInsights: any;
