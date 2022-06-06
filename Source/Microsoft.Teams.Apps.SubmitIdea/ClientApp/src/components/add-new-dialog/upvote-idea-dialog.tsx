@@ -33,8 +33,8 @@ interface IIdeaDialogContentState {
     theme: string;
 }
 
-class UpvoteIdeaDialogContent extends React.Component<IIdeaDialogContentProps|any, IIdeaDialogContentState> {
-    localize: TFunction|any;
+class UpvoteIdeaDialogContent extends React.Component<IIdeaDialogContentProps, IIdeaDialogContentState> {
+    localize: TFunction;
     teamId = "";
     constructor(props: any) {
         super(props);
@@ -174,4 +174,4 @@ class UpvoteIdeaDialogContent extends React.Component<IIdeaDialogContentProps|an
     }
 }
 
-export default UpvoteIdeaDialogContent
+export default withTranslation() (UpvoteIdeaDialogContent);

@@ -3,12 +3,21 @@
 // </copyright>
 
 import * as React from "react";
+import { Suspense } from "react";
 import * as ReactDOM from "react-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./app";
 
 
 ReactDOM.render(
-	<Router>
-		<App />
-	</Router>, document.getElementById("root"));
+	<React.StrictMode>
+	<Suspense fallback={<div className="container-div"><div className="container-subdiv"></div></div>}>
+	<BrowserRouter>
+		<Routes>
+			<Route path="*" element={<App />}>
+			</Route>
+		</Routes>
+		</BrowserRouter>
+	</Suspense>
+</React.StrictMode>, document.getElementById("root"));

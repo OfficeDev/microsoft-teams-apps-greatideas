@@ -22,28 +22,23 @@ import Redirect from "../components/redirect";
 import ErrorPage from "../components/error-page";
 
 export const AppRoute: React.FunctionComponent<{}> = () => {
-
-    return (
-        <Suspense fallback={<div className="container-div"><div className="container-subdiv"></div></div>}>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/ideas" element={<IdeaWrapperPage />} />
-                    <Route path="/team-ideas" element={<TeamsIdeaWrapperPage />} />
-                    <Route path="/signin" element={<SignInPage />} />
-                    <Route path="/signin-simple-start" element={<SignInSimpleStart />} />[]
-                    <Route path="/signin-simple-end" element={<SignInSimpleEnd />} />
-                    <Route path="/configure-preferences" element={<ConfigurePreferences />} />
-                    <Route path="/error" element={<ErrorPage />} />
-                    <Route path="/curator-config-tab" element={<CuratorTeamConfig />} />
-                    <Route path="/curator-dashboard" element={<CuratorTeamDashBoard />} />
-                    <Route path="/manage-category" element={<ManageCategory />} />
-                    <Route path="/submit-idea" element={<SubmitIdea />} />
-                    <Route path="/view-idea" element={<ViewIdea />} />
-                    <Route path="/upvote-idea" element={<UpvoteIdea />} />
-                    <Route path="/user-config-tab" element={<UserTeamConfigTab />} />
-                    <Route element={<Redirect />} />
-                </Routes>
-            </BrowserRouter>
-        </Suspense>
-    );
-}
+  return (
+    <Routes>
+      <Route path="/ideas" element={<IdeaWrapperPage />} />
+      <Route path="/team-ideas" element={<TeamsIdeaWrapperPage />} />
+      <Route path="/signin" element={<SignInPage />} />
+      <Route path="/signin-simple-start" element={<SignInSimpleStart />} />[]
+      <Route path="/signin-simple-end" element={<SignInSimpleEnd />} />
+      <Route path="/configure-preferences" element={<ConfigurePreferences />} />
+      <Route path="/error" element={<ErrorPage />} />
+      <Route path="/curator-config-tab" element={<CuratorTeamConfig />} />
+      <Route path="/curator-dashboard" element={<CuratorTeamDashBoard />} />
+      <Route path="/manage-category" element={<ManageCategory />} />
+      <Route path="/submit-idea" element={<SubmitIdea />} />
+      <Route path="/view-idea" element={<ViewIdea />} />
+      <Route path="/upvote-idea" element={<UpvoteIdea />} />
+      <Route path="/user-config-tab" element={<UserTeamConfigTab />} />
+      <Route element={<Redirect />} />
+    </Routes>
+  );
+};

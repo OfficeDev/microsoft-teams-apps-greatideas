@@ -26,7 +26,7 @@ interface IState {
 const browserHistory = createBrowserHistory();
 
 class ViewIdea extends React.Component<WithTranslation, IState> {
-    localize: TFunction|any;
+    localize: TFunction;
     userObjectId: string = "";
     appInsights: any;
     telemetry: string | undefined = "";
