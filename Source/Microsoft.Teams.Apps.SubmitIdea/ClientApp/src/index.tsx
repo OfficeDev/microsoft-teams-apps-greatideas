@@ -6,7 +6,6 @@ import * as React from "react";
 import { Suspense } from "react";
 import * as ReactDOM from "react-dom";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { BrowserRouter as Router } from "react-router-dom";
 import App from "./app";
 
 
