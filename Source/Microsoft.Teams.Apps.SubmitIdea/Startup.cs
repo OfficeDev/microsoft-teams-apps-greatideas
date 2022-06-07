@@ -8,7 +8,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
-    using Microsoft.Bot.Connector.Authentication;
+    using Microsoft.Bot.Builder.Integration.AspNet.Core;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
@@ -47,7 +47,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
             services.AddCredentialProviders(this.configuration);
             services.AddHelpers(this.configuration);
             services.AddBotStates(this.configuration);
-            services.AddSingleton<IChannelProvider, SimpleChannelProvider>();
+            services.AddSingleton<ConfigurationBotFrameworkAuthentication, ConfigurationBotFrameworkAuthentication>();
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";

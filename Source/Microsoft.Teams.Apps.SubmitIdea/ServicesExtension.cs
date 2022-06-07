@@ -15,7 +15,6 @@ namespace Microsoft.Teams.Apps.SubmitIdea
     using Microsoft.Azure.Search;
     using Microsoft.Bot.Builder;
     using Microsoft.Bot.Builder.Azure;
-    using Microsoft.Bot.Builder.BotFramework;
     using Microsoft.Bot.Builder.Integration.AspNet.Core;
     using Microsoft.Bot.Connector.Authentication;
     using Microsoft.Extensions.Configuration;
@@ -122,7 +121,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         public static void AddCredentialProviders(this IServiceCollection services, IConfiguration configuration)
         {
             services
-                .AddSingleton<ICredentialProvider, ConfigurationCredentialProvider>();
+                .AddSingleton<ConfigurationBotFrameworkAuthentication, ConfigurationBotFrameworkAuthentication>();
             services.AddSingleton(new MicrosoftAppCredentials(configuration.GetValue<string>("MicrosoftAppId"), configuration.GetValue<string>("MicrosoftAppPassword")));
         }
 
@@ -156,7 +155,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
 
             // Create the Middleware that will be added to the middleware pipeline in the AdapterWithErrorHandler.
             services.AddSingleton<SubmitIdeaActivityMiddleware>();
-            services.AddTransient(serviceProvider => (BotFrameworkAdapter)serviceProvider.GetRequiredService<IBotFrameworkHttpAdapter>());
+            services.AddTransient(serviceProvider => (CloudAdapter)serviceProvider.GetRequiredService<IBotFrameworkHttpAdapter>());
         }
 
         /// <summary>
