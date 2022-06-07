@@ -111,7 +111,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Helpers
                     ChannelId = Constants.TeamsBotFrameworkChannelId,
                     ServiceUrl = serviceUrl,
                 };
-                await ((CloudAdapter)this.botAdapter).ContinueConversationAsync(
+                await ((BotFrameworkAdapter)this.botAdapter).ContinueConversationAsync(
                     this.microsoftAppCredentials.MicrosoftAppId,
                     conversationReference,
                     async (context, token) =>
