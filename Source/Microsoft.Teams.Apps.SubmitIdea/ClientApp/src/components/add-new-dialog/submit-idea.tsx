@@ -52,7 +52,7 @@ export interface ITagValidationParameters {
 const browserHistory = createBrowserHistory();
 
 class SubmitIdea extends React.Component<WithTranslation, IState> {
-    localize: TFunction | any;
+    localize: TFunction;
     userObjectId: string = "";
     upn: string = "";
     items: any;

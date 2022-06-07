@@ -34,7 +34,7 @@ export interface IDashboardState {
 const browserHistory = createBrowserHistory();
 
 class CuratorTeamDashboard extends React.Component<WithTranslation, IDashboardState> {
-    localize: TFunction|any
+    localize: TFunction
     telemetry?: string = "";
     teamId?: string | null;
     userObjectId?: string = "";

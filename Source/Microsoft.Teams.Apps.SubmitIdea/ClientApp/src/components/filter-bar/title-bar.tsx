@@ -68,7 +68,7 @@ class TitleBar extends React.Component<IFilterBarProps, IFilterBarState> {
         let response = await getAuthors();
         if (response.status === 200 && response.data) {
             this.setState({
-                sharedByAuthorList: response.data.map((author: string) => { return author })
+                sharedByAuthorList: response.data.map((author: string) => { return author.trim() })
             });
         }
     }

@@ -8,7 +8,7 @@ export interface IConfigState {
 }
 
 class CuratorTeamConfig extends React.Component<WithTranslation, IConfigState> {
-    localize: TFunction|any;
+    localize: TFunction;
     constructor(props: any) {
         super(props);
         this.localize = this.props.t;
