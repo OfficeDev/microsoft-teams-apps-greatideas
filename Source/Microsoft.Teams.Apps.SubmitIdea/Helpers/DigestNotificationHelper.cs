@@ -201,7 +201,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Helpers
             {
                 try
                 {
-                    await ((CloudAdapter)this.adapter).ContinueConversationAsync(
+                    await ((BotFrameworkAdapter)this.adapter).ContinueConversationAsync(
                         this.botOptions.Value.MicrosoftAppId,
                         conversationReference,
                         async (conversationTurnContext, conversationCancellationToken) =>

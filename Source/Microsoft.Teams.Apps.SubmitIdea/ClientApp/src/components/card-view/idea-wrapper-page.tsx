@@ -704,8 +704,11 @@ class IdeaWrapperPage extends React.Component<WithTranslation, ICardViewState> {
             // Cards component array to be rendered in grid.
             const cards = new Array<any>();
 
-            this.state.discoverPosts!.map((value: IDiscoverPost, index) => {
-                if (value.status === ApprovalStatus.Approved) {
+            this.state.discoverPosts!.map((value: IDiscoverPost, index) => 
+            {
+                 //Ashish: Enhancement for :	The curator app needs an accepted radio button to mark an idea as accepted for development .
+                // Added or condition to show cards with Accepted or Approved status.
+                if (value.status === ApprovalStatus.Accepted || value.status === ApprovalStatus.Approved) {
                     cards.push(<Col lg={3} sm={6} md={4} className="grid-column d-flex justify-content-center">
                         <Card onAddPrivatePostClick={this.handleUserPrivatePostButtonClick} index={index} cardDetails={value} onVoteClick={this.onVoteClick} onCardUpdate={this.onCardUpdate} onDeleteButtonClick={this.handleDeleteButtonClick} />
                     </Col>)

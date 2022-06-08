@@ -62,6 +62,13 @@ class ViewIdea extends React.Component<WithTranslation, IState> {
             isIdeaApprovedOrRejected: false,
         }
         this.items = [
+            //Ashish: Enhancement for :	The curator app needs an accepted radio button to mark an idea as accepted for development .
+            // Added Accept Radio Button.
+            {
+                key: 'accept',
+                label: this.localize('radioAccept'),
+                value: ApprovalStatus.Accepted,
+            },
             {
                 key: 'approve',
                 label: this.localize('radioApprove'),
