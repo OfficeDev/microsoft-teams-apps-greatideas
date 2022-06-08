@@ -238,12 +238,16 @@ class CuratorTeamDashboard extends React.Component<WithTranslation, IDashboardSt
         }
     }
 
+    /* Enhancement:Added condition for Accepted status*/
     getApprovalStatus = (type: number | undefined) => {
         if (type === ApprovalStatus.Pending) {
             return this.localize('pendingStatusText');
         }
         else if (type === ApprovalStatus.Approved) {
             return this.localize('approvedStatusText');
+        }
+        else if (type === ApprovalStatus.Accepted) {
+            return this.localize('acceptedStatusText');
         }
         else if (type === ApprovalStatus.Rejected) {
             return this.localize('rejectedStatusText');
