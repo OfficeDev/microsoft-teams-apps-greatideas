@@ -81,6 +81,12 @@ namespace Microsoft.Teams.Apps.SubmitIdea
                 searchServiceSettings.SearchServiceAdminApiKey = configuration.GetValue<string>("SearchService:SearchServiceAdminApiKey");
                 searchServiceSettings.ConnectionString = configuration.GetValue<string>("Storage:ConnectionString");
             });
+
+            // Added to allow synchronous calls:issue fix for GI app: We couldn't save your tab settings. Please try again
+            services.Configure<IISServerOptions>(options =>
+            {
+                options.AllowSynchronousIO = true;
+            });
         }
 
         /// <summary>
