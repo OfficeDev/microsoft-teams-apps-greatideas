@@ -5,22 +5,18 @@
 namespace Microsoft.Teams.Apps.SubmitIdea.Models
 {
     using System;
-    using Microsoft.WindowsAzure.Storage.Table;
 
     /// <summary>
     /// Class contains team details where application is installed.
     /// </summary>
-    public class TeamEntity : TableEntity
+    public class TeamEntity : ATableEntity
     {
         /// <summary>
         /// Gets or sets team id where application is installed.
         /// </summary>
         public string TeamId
         {
-            get
-            {
-                return this.PartitionKey;
-            }
+            get => this.PartitionKey;
 
             set
             {

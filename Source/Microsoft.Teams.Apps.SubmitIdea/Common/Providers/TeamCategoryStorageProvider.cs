@@ -49,7 +49,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
             teamId = teamId ?? throw new ArgumentNullException(nameof(teamId));
 
             var operation = TableOperation.Retrieve<TeamCategoryEntity>(teamId, teamId);
-            var teamCategoryEntity = await this.CloudTable.ExecuteAsync(operation);
+            var teamCategoryEntity = await this.Table.ExecuteAsync(operation);
 
             return teamCategoryEntity.Result as TeamCategoryEntity;
         }
@@ -83,7 +83,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
 
             TableOperation addOrUpdateOperation = TableOperation.InsertOrReplace(teamCategoryEntity);
 
-            return await this.CloudTable.ExecuteAsync(addOrUpdateOperation);
+            return await this.Table.ExecuteAsync(addOrUpdateOperation);
         }
     }
 }

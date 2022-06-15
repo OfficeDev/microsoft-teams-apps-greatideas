@@ -73,7 +73,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
             }
 
             var operation = TableOperation.Retrieve<IdeaEntity>(ideaId, createdByUserId);
-            var data = await this.CloudTable.ExecuteAsync(operation);
+            var data = await this.Table.ExecuteAsync(operation);
 
             return data.Result as IdeaEntity;
         }
@@ -95,7 +95,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
 
             string partitionKeyCondition = TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, ideaId);
             TableQuery<IdeaEntity> query = new TableQuery<IdeaEntity>().Where(partitionKeyCondition);
-            var queryResult = await this.CloudTable.ExecuteQuerySegmentedAsync(query, null);
+            var queryResult = await this.Table.ExecuteQuerySegmentedAsync(query, null);
 
             return queryResult?.FirstOrDefault();
         }
@@ -117,7 +117,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
             }
 
             var operation = TableOperation.Retrieve<IdeaEntity>(ideaId, createdByUserId);
-            var data = await this.CloudTable.ExecuteAsync(operation);
+            var data = await this.Table.ExecuteAsync(operation);
 
             return data.Result as IdeaEntity;
         }
@@ -143,7 +143,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
 
             TableOperation addOrUpdateOperation = TableOperation.InsertOrReplace(entity);
 
-            return await this.CloudTable.ExecuteAsync(addOrUpdateOperation);
+            return await this.Table.ExecuteAsync(addOrUpdateOperation);
         }
     }
 }

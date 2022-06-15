@@ -61,7 +61,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
 
             do
             {
-                var queryResult = await this.CloudTable.ExecuteQuerySegmentedAsync(query, null);
+                var queryResult = await this.Table.ExecuteQuerySegmentedAsync(query, null);
                 if (queryResult?.Results != null)
                 {
                     userVotes.AddRange(queryResult.Results);
@@ -88,7 +88,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
             }
 
             var retrieveOperation = TableOperation.Retrieve<UserVoteEntity>(userId, ideaId);
-            var queryResult = await this.CloudTable.ExecuteAsync(retrieveOperation);
+            var queryResult = await this.Table.ExecuteAsync(retrieveOperation);
 
             if (queryResult?.Result != null)
             {
@@ -124,7 +124,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
             }
 
             TableOperation deleteOperation = TableOperation.Delete(userVoteEntity);
-            var result = await this.CloudTable.ExecuteAsync(deleteOperation);
+            var result = await this.Table.ExecuteAsync(deleteOperation);
 
             return result.HttpStatusCode == (int)HttpStatusCode.NoContent;
         }
@@ -146,7 +146,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
 
             TableOperation addOrUpdateOperation = TableOperation.InsertOrReplace(voteEntity);
 
-            return await this.CloudTable.ExecuteAsync(addOrUpdateOperation);
+            return await this.Table.ExecuteAsync(addOrUpdateOperation);
         }
     }
 }

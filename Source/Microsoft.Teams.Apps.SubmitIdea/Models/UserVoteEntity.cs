@@ -5,20 +5,19 @@
 namespace Microsoft.Teams.Apps.SubmitIdea.Models
 {
     using System.ComponentModel.DataAnnotations;
-    using Microsoft.WindowsAzure.Storage.Table;
 
     /// <summary>
     /// A class that represents user like/vote model.
     /// </summary>
-    public class UserVoteEntity : TableEntity
+    public class UserVoteEntity : ATableEntity
     {
         /// <summary>
         /// Gets or sets unique Azure Active Directory id of user.
         /// </summary>
         public string UserId
         {
-            get { return this.PartitionKey; }
-            set { this.PartitionKey = value; }
+            get => this.PartitionKey;
+            set => this.PartitionKey = value;
         }
 
         /// <summary>

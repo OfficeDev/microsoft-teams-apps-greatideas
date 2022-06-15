@@ -60,7 +60,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
             }
 
             var operation = TableOperation.Retrieve<TeamEntity>(teamId, teamId);
-            var data = await this.CloudTable.ExecuteAsync(operation);
+            var data = await this.Table.ExecuteAsync(operation);
 
             return data.Result as TeamEntity;
         }
@@ -76,7 +76,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
             teamEntity = teamEntity ?? throw new ArgumentNullException(nameof(teamEntity));
 
             TableOperation insertOrMergeOperation = TableOperation.Delete(teamEntity);
-            TableResult result = await this.CloudTable.ExecuteAsync(insertOrMergeOperation);
+            TableResult result = await this.Table.ExecuteAsync(insertOrMergeOperation);
 
             return result.HttpStatusCode == (int)HttpStatusCode.NoContent;
         }
@@ -97,7 +97,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
             }
 
             TableOperation addOrUpdateOperation = TableOperation.InsertOrReplace(entity);
-            return await this.CloudTable.ExecuteAsync(addOrUpdateOperation);
+            return await this.Table.ExecuteAsync(addOrUpdateOperation);
         }
     }
 }

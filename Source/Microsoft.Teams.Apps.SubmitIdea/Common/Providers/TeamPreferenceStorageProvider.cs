@@ -50,7 +50,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
             teamId = teamId ?? throw new ArgumentNullException(nameof(teamId));
 
             var operation = TableOperation.Retrieve<TeamPreferenceEntity>(teamId, teamId);
-            var teamPreference = await this.CloudTable.ExecuteAsync(operation);
+            var teamPreference = await this.Table.ExecuteAsync(operation);
 
             return teamPreference.Result as TeamPreferenceEntity;
         }
@@ -71,7 +71,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
 
             do
             {
-                var queryResult = await this.CloudTable.ExecuteQuerySegmentedAsync(query, continuationToken);
+                var queryResult = await this.Table.ExecuteQuerySegmentedAsync(query, continuationToken);
 
                 if (queryResult?.Results != null)
                 {
@@ -112,7 +112,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
 
             TableOperation addOrUpdateOperation = TableOperation.InsertOrReplace(teamPreferenceEntity);
 
-            return await this.CloudTable.ExecuteAsync(addOrUpdateOperation);
+            return await this.Table.ExecuteAsync(addOrUpdateOperation);
         }
     }
 }

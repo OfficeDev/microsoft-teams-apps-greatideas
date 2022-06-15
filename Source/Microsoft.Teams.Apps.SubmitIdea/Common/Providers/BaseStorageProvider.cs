@@ -6,9 +6,9 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
 {
     using System;
     using System.Threading.Tasks;
+    using global::Azure.Data.Tables;
+    using global::Azure.Data.Tables.Models;
     using Microsoft.Extensions.Logging;
-    using Microsoft.WindowsAzure.Storage;
-    using Microsoft.WindowsAzure.Storage.Table;
 
     /// <summary>
     /// Implements storage provider which initializes table if not exists and provide table client instance.
@@ -37,7 +37,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
             string tableName,
             ILogger<BaseStorageProvider> logger)
         {
-            this.InitializeTask = new Lazy<Task>(() => this.InitializeAsync());
+            this.InitializeTask = new Lazy<Task>(this.InitializeAsync);
             this.connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
             this.TableName = tableName;
             this.logger = logger;
@@ -54,9 +54,9 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
         protected string TableName { get; set; }
 
         /// <summary>
-        /// Gets or sets the CloudTableClient object that represents the table service..
+        /// Gets the CloudTableClient object that represents the table service..
         /// </summary>
-        protected CloudTable CloudTable { get; set; }
+        protected TableClient Table { get; private set; }
 
         /// <summary>
         /// Ensures storage should be created before working on table.
@@ -88,7 +88,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
                 return teamIdFilter;
             }
 
-            return TableQuery.CombineFilters(teamIdFilter, TableOperators.And, partitionKeyFilter);
+            return $"({teamIdFilter}) and ({partitionKeyFilter})";
         }
 
         /// <summary>
@@ -99,10 +99,8 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
         {
             try
             {
-                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(this.connectionString);
-                CloudTableClient cloudTableClient = storageAccount.CreateCloudTableClient();
-                this.CloudTable = cloudTableClient.GetTableReference(this.TableName);
-                await this.CloudTable.CreateIfNotExistsAsync();
+                this.Table = new TableClient(this.connectionString, this.TableName);
+                await this.Table.CreateIfNotExistsAsync();
             }
             catch (Exception ex)
             {
