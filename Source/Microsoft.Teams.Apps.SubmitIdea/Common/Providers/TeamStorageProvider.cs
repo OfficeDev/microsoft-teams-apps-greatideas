@@ -7,12 +7,12 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
     using System;
     using System.Net;
     using System.Threading.Tasks;
+    using global::Azure;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
     using Microsoft.Teams.Apps.SubmitIdea.Common.Interfaces;
     using Microsoft.Teams.Apps.SubmitIdea.Models;
     using Microsoft.Teams.Apps.SubmitIdea.Models.Configuration;
-    using Microsoft.WindowsAzure.Storage.Table;
 
     /// <summary>
     /// Implements storage provider which helps to storage team information in Microsoft Azure Table storage.
@@ -41,8 +41,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
         public async Task<bool> StoreOrUpdateTeamDetailAsync(TeamEntity teamEntity)
         {
             var result = await this.StoreOrUpdateEntityAsync(teamEntity);
-
-            return result.HttpStatusCode == (int)HttpStatusCode.NoContent;
+            return !result.IsError;
         }
 
         /// <summary>
@@ -59,10 +58,8 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
                 return null;
             }
 
-            var operation = TableOperation.Retrieve<TeamEntity>(teamId, teamId);
-            var data = await this.CloudTable.ExecuteAsync(operation);
-
-            return data.Result as TeamEntity;
+            var data = await this.Table.GetEntityAsync<TeamEntity>(teamId, teamId);
+            return data.Value;
         }
 
         /// <summary>
@@ -75,10 +72,8 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
             await this.EnsureInitializedAsync();
             teamEntity = teamEntity ?? throw new ArgumentNullException(nameof(teamEntity));
 
-            TableOperation insertOrMergeOperation = TableOperation.Delete(teamEntity);
-            TableResult result = await this.CloudTable.ExecuteAsync(insertOrMergeOperation);
-
-            return result.HttpStatusCode == (int)HttpStatusCode.NoContent;
+            var result = await this.Table.DeleteEntityAsync(teamEntity.PartitionKey, teamEntity.RowKey);
+            return !result.IsError;
         }
 
         /// <summary>
@@ -86,7 +81,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
         /// </summary>
         /// <param name="entity">Holds team idea detail entity data.</param>
         /// <returns>A task that represents idea post entity data is saved or updated.</returns>
-        private async Task<TableResult> StoreOrUpdateEntityAsync(TeamEntity entity)
+        private async Task<Response> StoreOrUpdateEntityAsync(TeamEntity entity)
         {
             await this.EnsureInitializedAsync();
             entity = entity ?? throw new ArgumentNullException(nameof(entity));
@@ -96,8 +91,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
                 return null;
             }
 
-            TableOperation addOrUpdateOperation = TableOperation.InsertOrReplace(entity);
-            return await this.CloudTable.ExecuteAsync(addOrUpdateOperation);
+            return await this.Table.UpsertEntityAsync(entity);
         }
     }
 }

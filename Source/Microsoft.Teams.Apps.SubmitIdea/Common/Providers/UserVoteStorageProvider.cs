@@ -6,14 +6,16 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Net;
     using System.Threading.Tasks;
+    using global::Azure;
+    using global::Azure.Data.Tables;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
     using Microsoft.Teams.Apps.SubmitIdea.Common.Interfaces;
     using Microsoft.Teams.Apps.SubmitIdea.Models;
     using Microsoft.Teams.Apps.SubmitIdea.Models.Configuration;
-    using Microsoft.WindowsAzure.Storage.Table;
 
     /// <summary>
     /// Implements storage provider which helps to create, get, update or delete user vote data in Microsoft Azure Table storage.
@@ -53,24 +55,8 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
                 return null;
             }
 
-            string partitionKeyCondition = TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, userId);
-
-            List<UserVoteEntity> userVotes = new List<UserVoteEntity>();
-            TableContinuationToken continuationToken = null;
-            TableQuery<UserVoteEntity> query = new TableQuery<UserVoteEntity>().Where(partitionKeyCondition);
-
-            do
-            {
-                var queryResult = await this.CloudTable.ExecuteQuerySegmentedAsync(query, null);
-                if (queryResult?.Results != null)
-                {
-                    userVotes.AddRange(queryResult.Results);
-                    continuationToken = queryResult.ContinuationToken;
-                }
-            }
-            while (continuationToken != null);
-
-            return userVotes;
+            var partitionKeyCondition = TableClient.CreateQueryFilter<UserVoteEntity>(e => e.PartitionKey == userId);
+            return await this.Table.QueryAsync<UserVoteEntity>(partitionKeyCondition).ToListAsync();
         }
 
         /// <summary>
@@ -87,15 +73,8 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
                 return null;
             }
 
-            var retrieveOperation = TableOperation.Retrieve<UserVoteEntity>(userId, ideaId);
-            var queryResult = await this.CloudTable.ExecuteAsync(retrieveOperation);
-
-            if (queryResult?.Result != null)
-            {
-                return (UserVoteEntity)queryResult.Result;
-            }
-
-            return null;
+            var queryResult = await this.Table.GetEntityAsync<UserVoteEntity>(userId, ideaId);
+            return queryResult?.Value;
         }
 
         /// <summary>
@@ -106,7 +85,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
         public async Task<bool> UpsertUserVoteAsync(UserVoteEntity voteEntity)
         {
             var result = await this.StoreOrUpdateEntityAsync(voteEntity);
-            return result.HttpStatusCode == (int)HttpStatusCode.NoContent;
+            return !result.IsError;
         }
 
         /// <summary>
@@ -123,10 +102,8 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
                 return false;
             }
 
-            TableOperation deleteOperation = TableOperation.Delete(userVoteEntity);
-            var result = await this.CloudTable.ExecuteAsync(deleteOperation);
-
-            return result.HttpStatusCode == (int)HttpStatusCode.NoContent;
+            var result = await this.Table.DeleteEntityAsync(userVoteEntity.PartitionKey, userVoteEntity.RowKey);
+            return !result.IsError;
         }
 
         /// <summary>
@@ -134,7 +111,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
         /// </summary>
         /// <param name="voteEntity">Holds user vote entity data.</param>
         /// <returns>A task that represents user vote entity data is saved or updated.</returns>
-        private async Task<TableResult> StoreOrUpdateEntityAsync(UserVoteEntity voteEntity)
+        private async Task<Response> StoreOrUpdateEntityAsync(UserVoteEntity voteEntity)
         {
             await this.EnsureInitializedAsync();
             voteEntity = voteEntity ?? throw new ArgumentNullException(nameof(voteEntity));
@@ -144,9 +121,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
                 return null;
             }
 
-            TableOperation addOrUpdateOperation = TableOperation.InsertOrReplace(voteEntity);
-
-            return await this.CloudTable.ExecuteAsync(addOrUpdateOperation);
+            return await this.Table.UpsertEntityAsync(voteEntity);
         }
     }
 }

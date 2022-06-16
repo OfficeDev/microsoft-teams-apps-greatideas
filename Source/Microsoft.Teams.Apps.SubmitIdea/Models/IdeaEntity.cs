@@ -7,13 +7,11 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Models
     using System;
     using System.ComponentModel.DataAnnotations;
     using Microsoft.Azure.Search;
-    using Microsoft.WindowsAzure.Storage.Table;
-    using Newtonsoft.Json;
 
     /// <summary>
     /// A class that represents team idea entity model which helps to create, insert, update and delete the idea.
     /// </summary>
-    public class IdeaEntity : TableEntity
+    public class IdeaEntity : ATableEntity
     {
         /// <summary>
         /// Gets or sets Azure Active Directory id of author who created the idea.

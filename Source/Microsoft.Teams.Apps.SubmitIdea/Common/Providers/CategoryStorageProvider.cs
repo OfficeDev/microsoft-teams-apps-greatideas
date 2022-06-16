@@ -9,12 +9,12 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using global::Azure.Data.Tables;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
     using Microsoft.Teams.Apps.SubmitIdea.Common.Interfaces;
     using Microsoft.Teams.Apps.SubmitIdea.Models;
     using Microsoft.Teams.Apps.SubmitIdea.Models.Configuration;
-    using Microsoft.WindowsAzure.Storage.Table;
 
     /// <summary>
     ///  Implements storage provider which helps to add, edit, delete idea category data in Microsoft Azure Table storage
@@ -25,11 +25,6 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
         /// Represents idea category entity name.
         /// </summary>
         private const string CategoryTable = "CategoryEntity";
-
-        /// <summary>
-        /// Sets the batch size of table operation.
-        /// </summary>
-        private const int CategoryTableOperationBatchLimit = 10;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CategoryStorageProvider"/> class.
@@ -50,20 +45,12 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
         public async Task<IEnumerable<CategoryEntity>> GetCategoriesAsync()
         {
             await this.EnsureInitializedAsync();
-            string filter = TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, CategoryEntity.CategoryPartitionKey);
-            var query = new TableQuery<CategoryEntity>().Where(filter);
-            TableContinuationToken continuationToken = null;
-            var categories = new List<CategoryEntity>();
+            var filter =
+                TableClient.CreateQueryFilter<CategoryEntity>(
+                    e => e.PartitionKey == CategoryEntity.CategoryPartitionKey);
 
-            do
-            {
-                var queryResult = await this.CloudTable.ExecuteQuerySegmentedAsync(query, continuationToken);
-                categories.AddRange(queryResult?.Results);
-                continuationToken = queryResult?.ContinuationToken;
-            }
-            while (continuationToken != null);
-
-            return categories.OrderByDescending(category => category.Timestamp);
+            var entities = await this.Table.QueryAsync<CategoryEntity>(filter).ToListAsync();
+            return entities.OrderByDescending(category => category.Timestamp);
         }
 
         /// <summary>
@@ -80,9 +67,9 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
                 return null;
             }
 
-            var operation = TableOperation.Retrieve<CategoryEntity>(CategoryEntity.CategoryPartitionKey, categoryId);
-            var category = await this.CloudTable.ExecuteAsync(operation);
-            return category.Result as CategoryEntity;
+            var response =
+                await this.Table.GetEntityAsync<CategoryEntity>(CategoryEntity.CategoryPartitionKey, categoryId);
+            return response.Value;
         }
 
         /// <summary>
@@ -100,23 +87,9 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
             // The max supported categories are 10 and can be executed
             // If the categories are expected to increase further, then
             // it is recommended to execute it in batches.
-            string categoriesCondition = this.CreateCategoriesFilter(format, categoryIds);
+            var categoriesCondition = this.CreateCategoriesFilter(format, categoryIds);
 
-            TableQuery<CategoryEntity> query = new TableQuery<CategoryEntity>().Where(categoriesCondition);
-            TableContinuationToken continuationToken = null;
-            var categoryCollection = new List<CategoryEntity>();
-            do
-            {
-                var queryResult = await this.CloudTable.ExecuteQuerySegmentedAsync(query, continuationToken);
-                if (queryResult?.Results != null)
-                {
-                    categoryCollection.AddRange(queryResult.Results);
-                    continuationToken = queryResult.ContinuationToken;
-                }
-            }
-            while (continuationToken != null);
-
-            return categoryCollection;
+            return await this.Table.QueryAsync<CategoryEntity>(categoriesCondition).ToListAsync();
         }
 
         /// <summary>
@@ -135,9 +108,13 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
                 return null;
             }
 
-            TableOperation addOrUpdateOperation = TableOperation.InsertOrReplace(categoryEntity);
-            var result = await this.CloudTable.ExecuteAsync(addOrUpdateOperation);
-            return result.Result as CategoryEntity;
+            var result = await this.Table.UpsertEntityAsync(categoryEntity);
+            if (result.IsError)
+            {
+                throw new ApplicationException("Unable to update the entity");
+            }
+
+            return categoryEntity;
         }
 
         /// <summary>
@@ -151,25 +128,9 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
 
             categoryEntities = categoryEntities ?? throw new ArgumentNullException(nameof(categoryEntities));
 
-            TableBatchOperation tableOperation;
-            int batchCount = (int)Math.Ceiling((double)categoryEntities.Count() / CategoryTableOperationBatchLimit);
-
-            for (int batchIndex = 0; batchIndex < batchCount; batchIndex++)
+            foreach (var category in categoryEntities)
             {
-                tableOperation = new TableBatchOperation();
-                var categoryEntitiesBatch = categoryEntities
-                    .Skip(batchIndex * CategoryTableOperationBatchLimit)
-                    .Take(CategoryTableOperationBatchLimit);
-
-                foreach (var category in categoryEntitiesBatch)
-                {
-                    tableOperation.Delete(category);
-                }
-
-                if (tableOperation.Count > 0)
-                {
-                    await this.CloudTable.ExecuteBatchAsync(tableOperation);
-                }
+                await this.Table.DeleteEntityAsync(CategoryEntity.CategoryPartitionKey, category.RowKey);
             }
 
             return true;
@@ -183,31 +144,29 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
         /// <returns>Returns combined filter for user private ideas.</returns>
         private string CreateCategoriesFilter(IFormatProvider format, IEnumerable<string> categoryIds)
         {
-            var categoryIdConditions = new List<string>();
-            StringBuilder combinedCaregoryIdsFilter = new StringBuilder();
+            var combinedCategoryIdsFilter = new StringBuilder();
 
-            categoryIds = categoryIds.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct();
+            categoryIds = categoryIds.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToArray();
 
-            foreach (var categoryId in categoryIds)
-            {
-                categoryIdConditions.Add("(" + TableQuery.GenerateFilterCondition("RowKey", QueryComparisons.Equal, categoryId) + ")");
-            }
+            var categoryIdConditions = categoryIds
+                .Select(categoryId => $"({TableClient.CreateQueryFilter<CategoryEntity>(e => e.RowKey == categoryId)})")
+                .ToList();
 
             if (categoryIdConditions.Count >= 2)
             {
                 var categories = categoryIdConditions.Take(categoryIdConditions.Count - 1).ToList();
                 categories.ForEach(postCondition =>
                 {
-                    combinedCaregoryIdsFilter.Append(format, $"{postCondition} {"or"} ");
+                    combinedCategoryIdsFilter.Append(format, $"{postCondition} {"or"} ");
                 });
 
-                combinedCaregoryIdsFilter.Append(format, $"{categoryIdConditions.Last()}");
+                combinedCategoryIdsFilter.Append(format, $"{categoryIdConditions.Last()}");
 
-                return combinedCaregoryIdsFilter.ToString();
+                return combinedCategoryIdsFilter.ToString();
             }
             else
             {
-                return TableQuery.GenerateFilterCondition("RowKey", QueryComparisons.Equal, categoryIds.FirstOrDefault());
+                return TableClient.CreateQueryFilter<CategoryEntity>(e => e.RowKey == categoryIds.FirstOrDefault());
             }
         }
     }

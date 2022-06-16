@@ -8,12 +8,13 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
     using System.Linq;
     using System.Net;
     using System.Threading.Tasks;
+    using global::Azure;
+    using global::Azure.Data.Tables;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
     using Microsoft.Teams.Apps.SubmitIdea.Common.Interfaces;
     using Microsoft.Teams.Apps.SubmitIdea.Models;
     using Microsoft.Teams.Apps.SubmitIdea.Models.Configuration;
-    using Microsoft.WindowsAzure.Storage.Table;
 
     /// <summary>
     /// Implements storage provider which helps to create, get, update or delete team idea data in Microsoft Azure Table storage.
@@ -52,8 +53,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
         public async Task<bool> UpsertIdeaAsync(IdeaEntity ideaEntity)
         {
             var result = await this.StoreOrUpdateEntityAsync(ideaEntity);
-
-            return result.HttpStatusCode == (int)HttpStatusCode.NoContent;
+            return !result.IsError;
         }
 
         /// <summary>
@@ -72,10 +72,8 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
                 return null;
             }
 
-            var operation = TableOperation.Retrieve<IdeaEntity>(ideaId, createdByUserId);
-            var data = await this.CloudTable.ExecuteAsync(operation);
-
-            return data.Result as IdeaEntity;
+            var data = await this.Table.GetEntityAsync<IdeaEntity>(ideaId, createdByUserId);
+            return data.Value;
         }
 
         /// <summary>
@@ -93,11 +91,9 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
                 return null;
             }
 
-            string partitionKeyCondition = TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, ideaId);
-            TableQuery<IdeaEntity> query = new TableQuery<IdeaEntity>().Where(partitionKeyCondition);
-            var queryResult = await this.CloudTable.ExecuteQuerySegmentedAsync(query, null);
-
-            return queryResult?.FirstOrDefault();
+            var partitionKeyCondition = TableClient.CreateQueryFilter<IdeaEntity>(e => e.PartitionKey == ideaId);
+            var queryResult = await this.Table.QueryAsync<IdeaEntity>(partitionKeyCondition).ToArrayAsync();
+            return queryResult.FirstOrDefault();
         }
 
         /// <summary>
@@ -116,10 +112,8 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
                 return null;
             }
 
-            var operation = TableOperation.Retrieve<IdeaEntity>(ideaId, createdByUserId);
-            var data = await this.CloudTable.ExecuteAsync(operation);
-
-            return data.Result as IdeaEntity;
+            var data = await this.Table.GetEntityAsync<IdeaEntity>(ideaId, createdByUserId);
+            return data.Value;
         }
 
         /// <summary>
@@ -127,7 +121,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
         /// </summary>
         /// <param name="entity">Holds team idea detail entity data.</param>
         /// <returns>A task that represents idea post entity data is saved or updated.</returns>
-        private async Task<TableResult> StoreOrUpdateEntityAsync(IdeaEntity entity)
+        private async Task<Response> StoreOrUpdateEntityAsync(IdeaEntity entity)
         {
             await this.EnsureInitializedAsync();
             entity = entity ?? throw new ArgumentNullException(nameof(entity));
@@ -141,9 +135,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
                 return null;
             }
 
-            TableOperation addOrUpdateOperation = TableOperation.InsertOrReplace(entity);
-
-            return await this.CloudTable.ExecuteAsync(addOrUpdateOperation);
+            return await this.Table.UpsertEntityAsync(entity);
         }
     }
 }
