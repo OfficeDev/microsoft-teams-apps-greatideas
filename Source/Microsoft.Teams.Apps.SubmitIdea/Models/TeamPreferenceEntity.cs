@@ -6,11 +6,12 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Models
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using Microsoft.WindowsAzure.Storage.Table;
 
     /// <summary>
     /// A class that represents team preference entity model.
     /// </summary>
-    public class TeamPreferenceEntity : ATableEntity
+    public class TeamPreferenceEntity : TableEntity
     {
         /// <summary>
         /// Gets or sets unique value for each Team where preference has configured.

@@ -10,14 +10,12 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="AdaptiveCards" Version="2.7.3" />
-    <PackageReference Include="Azure.Core" Version="1.24.0" />
-    <PackageReference Include="Azure.Data.Tables" Version="12.6.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.20.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.AzureAD.UI" Version="6.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.5" />
     <PackageReference Include="Microsoft.Azure.Search.Data" Version="10.1.0" />
     <PackageReference Include="Microsoft.Azure.Search.Service" Version="10.1.0" />
-    <PackageReference Include="Microsoft.Bot.Builder.Azure" Version="4.16.1" />
+    <PackageReference Include="Microsoft.Bot.Builder.Azure" Version="4.2.2" />
     <PackageReference Include="Microsoft.Bot.Builder.Integration.AspNet.Core" Version="4.16.1" />
     <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -30,7 +28,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="System.Linq.Async" Version="6.0.1" />
   </ItemGroup>
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
