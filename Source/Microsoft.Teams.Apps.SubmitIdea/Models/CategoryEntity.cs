@@ -6,11 +6,12 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Models
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using Microsoft.WindowsAzure.Storage.Table;
 
     /// <summary>
     /// Category Entity.
     /// </summary>
-    public class CategoryEntity : ATableEntity
+    public class CategoryEntity : TableEntity
     {
         /// <summary>
         /// Constant partition key value.

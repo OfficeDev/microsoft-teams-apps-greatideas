@@ -7,12 +7,12 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
     using System;
     using System.Net;
     using System.Threading.Tasks;
-    using global::Azure;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
     using Microsoft.Teams.Apps.SubmitIdea.Common.Interfaces;
     using Microsoft.Teams.Apps.SubmitIdea.Models;
     using Microsoft.Teams.Apps.SubmitIdea.Models.Configuration;
+    using Microsoft.WindowsAzure.Storage.Table;
 
     /// <summary>
     /// Implements storage provider which helps to create, get, update or delete team tags data in storage.
@@ -48,8 +48,10 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
             await this.EnsureInitializedAsync();
             teamId = teamId ?? throw new ArgumentNullException(nameof(teamId));
 
-            var teamCategoryEntity = await this.Table.GetEntityAsync<TeamCategoryEntity>(teamId, teamId);
-            return teamCategoryEntity.Value;
+            var operation = TableOperation.Retrieve<TeamCategoryEntity>(teamId, teamId);
+            var teamCategoryEntity = await this.CloudTable.ExecuteAsync(operation);
+
+            return teamCategoryEntity.Result as TeamCategoryEntity;
         }
 
         /// <summary>
@@ -61,7 +63,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
         {
             var result = await this.StoreOrUpdateEntityAsync(teamCategoryEntity);
 
-            return !result.IsError;
+            return result.HttpStatusCode == (int)HttpStatusCode.NoContent;
         }
 
         /// <summary>
@@ -69,7 +71,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
         /// </summary>
         /// <param name="teamCategoryEntity">Represents team tag entity object.</param>
         /// <returns>A task that represents team tags entity data is saved or updated.</returns>
-        private async Task<Response> StoreOrUpdateEntityAsync(TeamCategoryEntity teamCategoryEntity)
+        private async Task<TableResult> StoreOrUpdateEntityAsync(TeamCategoryEntity teamCategoryEntity)
         {
             await this.EnsureInitializedAsync();
             teamCategoryEntity = teamCategoryEntity ?? throw new ArgumentNullException(nameof(teamCategoryEntity));
@@ -79,7 +81,9 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
                 return null;
             }
 
-            return await this.Table.UpsertEntityAsync(teamCategoryEntity);
+            TableOperation addOrUpdateOperation = TableOperation.InsertOrReplace(teamCategoryEntity);
+
+            return await this.CloudTable.ExecuteAsync(addOrUpdateOperation);
         }
     }
 }

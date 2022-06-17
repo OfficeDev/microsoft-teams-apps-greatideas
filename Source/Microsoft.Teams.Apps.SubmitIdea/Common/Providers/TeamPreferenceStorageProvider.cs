@@ -6,16 +6,14 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Net;
     using System.Threading.Tasks;
-    using global::Azure;
-    using global::Azure.Data.Tables;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
     using Microsoft.Teams.Apps.SubmitIdea.Common.Interfaces;
     using Microsoft.Teams.Apps.SubmitIdea.Models;
     using Microsoft.Teams.Apps.SubmitIdea.Models.Configuration;
+    using Microsoft.WindowsAzure.Storage.Table;
 
     /// <summary>
     /// Implements storage provider which helps to create, get or update team preferences data in Microsoft Azure Table storage.
@@ -51,8 +49,10 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
             await this.EnsureInitializedAsync();
             teamId = teamId ?? throw new ArgumentNullException(nameof(teamId));
 
-            var teamPreference = await this.Table.GetEntityAsync<TeamPreferenceEntity>(teamId, teamId);
-            return teamPreference.Value;
+            var operation = TableOperation.Retrieve<TeamPreferenceEntity>(teamId, teamId);
+            var teamPreference = await this.CloudTable.ExecuteAsync(operation);
+
+            return teamPreference.Result as TeamPreferenceEntity;
         }
 
         /// <summary>
@@ -63,9 +63,25 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
         public async Task<IEnumerable<TeamPreferenceEntity>> GetTeamPreferencesAsync(DigestFrequency digestFrequency)
         {
             await this.EnsureInitializedAsync();
-            var digestFrequencyCondition = TableClient.CreateQueryFilter<TeamPreferenceEntity>(e => e.DigestFrequency == digestFrequency.ToString());
+            var digestFrequencyCondition = TableQuery.GenerateFilterCondition(nameof(TeamPreferenceEntity.DigestFrequency), QueryComparisons.Equal, digestFrequency.ToString());
 
-            return await this.Table.QueryAsync<TeamPreferenceEntity>(digestFrequencyCondition).ToListAsync();
+            TableQuery<TeamPreferenceEntity> query = new TableQuery<TeamPreferenceEntity>().Where(digestFrequencyCondition);
+            TableContinuationToken continuationToken = null;
+            var teamPreferenceCollection = new List<TeamPreferenceEntity>();
+
+            do
+            {
+                var queryResult = await this.CloudTable.ExecuteQuerySegmentedAsync(query, continuationToken);
+
+                if (queryResult?.Results != null)
+                {
+                    teamPreferenceCollection.AddRange(queryResult.Results);
+                    continuationToken = queryResult.ContinuationToken;
+                }
+            }
+            while (continuationToken != null);
+
+            return teamPreferenceCollection;
         }
 
         /// <summary>
@@ -76,7 +92,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
         public async Task<bool> UpsertTeamPreferenceAsync(TeamPreferenceEntity teamPreferenceEntity)
         {
             var result = await this.StoreOrUpdateEntityAsync(teamPreferenceEntity);
-            return !result.IsError;
+            return result.HttpStatusCode == (int)HttpStatusCode.NoContent;
         }
 
         /// <summary>
@@ -84,7 +100,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
         /// </summary>
         /// <param name="teamPreferenceEntity">Holds team preference detail entity data.</param>
         /// <returns>A task that represents team preference entity data is saved or updated.</returns>
-        private async Task<Response> StoreOrUpdateEntityAsync(TeamPreferenceEntity teamPreferenceEntity)
+        private async Task<TableResult> StoreOrUpdateEntityAsync(TeamPreferenceEntity teamPreferenceEntity)
         {
             await this.EnsureInitializedAsync();
             teamPreferenceEntity = teamPreferenceEntity ?? throw new ArgumentNullException(nameof(teamPreferenceEntity));
@@ -94,7 +110,9 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
                 return null;
             }
 
-            return await this.Table.UpsertEntityAsync(teamPreferenceEntity);
+            TableOperation addOrUpdateOperation = TableOperation.InsertOrReplace(teamPreferenceEntity);
+
+            return await this.CloudTable.ExecuteAsync(addOrUpdateOperation);
         }
     }
 }
