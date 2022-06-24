@@ -318,7 +318,7 @@
             },
             {
               "name": "WEBSITE_NODE_DEFAULT_VERSION",
-              "value": "10.15.2"
+              "value": "~16"
             }
           ],
           "cors": {
