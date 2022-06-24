@@ -424,7 +424,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.SearchServices
 
                 case IdeaSearchScope.CategoriesInUse:
                     searchParameters.SearchFields = new[] { nameof(IdeaEntity.CategoryId) };
-                    searchParameters.Filter = $"{nameof(IdeaEntity.Status)} eq {(int)IdeaStatus.Pending} or {nameof(IdeaEntity.Status)} eq {(int)IdeaStatus.Approved}";
+                    searchParameters.Filter = $"{nameof(IdeaEntity.Status)} eq {(int)IdeaStatus.Pending} or {nameof(IdeaEntity.Status)} eq {(int)IdeaStatus.Approved} or {nameof(IdeaEntity.Status)} eq {(int)IdeaStatus.Accepted}";
                     searchParameters.Select = new[] { nameof(IdeaEntity.Category) };
                     break;
 

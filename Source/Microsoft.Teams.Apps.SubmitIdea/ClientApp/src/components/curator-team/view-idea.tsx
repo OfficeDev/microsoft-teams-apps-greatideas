@@ -62,7 +62,7 @@ class ViewIdea extends React.Component<WithTranslation, IState> {
     this.state = {
       loading: true,
       idea: undefined,
-      selectedStatus: ApprovalStatus.Approved,
+      selectedStatus: ApprovalStatus.Accepted,//changed from Approved to Accepted status by default
       selectedCategory: undefined,
       categories: [],
       feedbackText: "",

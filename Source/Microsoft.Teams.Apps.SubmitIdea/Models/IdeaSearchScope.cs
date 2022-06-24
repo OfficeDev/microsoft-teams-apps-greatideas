@@ -70,6 +70,11 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Models
         Approved,
 
         /// <summary>
+        /// Represents accepted status as per the applied filters.
+        /// </summary>
+        Accepted,
+
+        /// <summary>
         /// Represents configured team tags.
         /// </summary>
         TeamPreferenceCategories,
