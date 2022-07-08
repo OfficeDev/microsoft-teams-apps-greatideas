@@ -11,7 +11,7 @@
     "@microsoft/teams-js": "1.6.0",
     "@uifabric/icons": "7.3.47",
     "axios": "0.19.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "bootstrap": "4.5.0",
     "i18next": "19.4.5",
     "i18next-xhr-backend": "^3.2.2",
