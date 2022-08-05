@@ -7,11 +7,11 @@ namespace Microsoft.Teams.Apps.SubmitIdea
     using System;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
     using Microsoft.Bot.Connector.Authentication;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
     using Microsoft.Teams.Apps.SubmitIdea.Authentication;
 
     /// <summary>
@@ -39,6 +39,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         /// </remarks>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc(option => option.EnableEndpointRouting = false);
             services.AddHttpContextAccessor();
             services.AddConfigurationSettings(this.configuration);
             services.AddBotFrameworkAdapter();
@@ -52,7 +53,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
                 configuration.RootPath = "ClientApp/build";
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc();
             services.AddMemoryCache();
             services.AddLocalization(this.configuration);
         }
@@ -62,7 +63,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         /// </summary>
         /// <param name="app">The application.</param>
         /// <param name="env">Hosting Environment.</param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseAuthentication();
             app.UseRequestLocalization();

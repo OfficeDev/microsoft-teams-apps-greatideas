@@ -4,13 +4,13 @@
 
 import * as React from "react";
 import { Suspense } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import IdeaWrapperPage from "../components/card-view/idea-wrapper-page";
 import TeamsIdeaWrapperPage from "../components/card-view/teams-idea-wrapper-page";
 import SignInPage from "../components/signin/signin";
 import SignInSimpleStart from "../components/signin/signin-start";
 import SignInSimpleEnd from "../components/signin/signin-end";
-import configurepreference from "../components/configure-preference-dialog/configure-preference";
+import ConfigurePreferences from "../components/configure-preference-dialog/configure-preference";
 import CuratorTeamConfig from "../components/curator-team/curator-config-tab";
 import ViewIdea from "../components/curator-team/view-idea";
 import UpvoteIdea from "../components/card-view/upvote-idea";
@@ -22,28 +22,23 @@ import Redirect from "../components/redirect";
 import ErrorPage from "../components/error-page";
 
 export const AppRoute: React.FunctionComponent<{}> = () => {
-
-    return (
-        <Suspense fallback={<div className="container-div"><div className="container-subdiv"></div></div>}>
-            <BrowserRouter>
-                <Switch>
-                    <Route exact path="/ideas" component={IdeaWrapperPage} />
-                    <Route exact path="/team-ideas" component={TeamsIdeaWrapperPage} />
-                    <Route exact path="/signin" component={SignInPage} />
-                    <Route exact path="/signin-simple-start" component={SignInSimpleStart} />
-                    <Route exact path="/signin-simple-end" component={SignInSimpleEnd} />
-                    <Route exact path="/configure-preferences" component={configurepreference} />
-                    <Route exact path="/error" component={ErrorPage} />
-                    <Route exact path="/curator-config-tab" component={CuratorTeamConfig} />
-                    <Route exact path="/curator-dashboard" component={CuratorTeamDashBoard} />
-                    <Route exact path="/manage-category" component={ManageCategory} />
-                    <Route exact path="/submit-idea" component={SubmitIdea} />
-                    <Route exact path="/view-idea" component={ViewIdea} />
-                    <Route exact path="/upvote-idea" component={UpvoteIdea} />
-                    <Route exact path="/user-config-tab" component={UserTeamConfigTab} />
-                    <Route component={Redirect} />
-                </Switch>
-            </BrowserRouter>
-        </Suspense>
-    );
-}
+  return (
+    <Routes>
+      <Route path="/ideas" element={<IdeaWrapperPage />} />
+      <Route path="/team-ideas" element={<TeamsIdeaWrapperPage />} />
+      <Route path="/signin" element={<SignInPage />} />
+      <Route path="/signin-simple-start" element={<SignInSimpleStart />} />[]
+      <Route path="/signin-simple-end" element={<SignInSimpleEnd />} />
+      <Route path="/configure-preferences" element={<ConfigurePreferences />} />
+      <Route path="/error" element={<ErrorPage />} />
+      <Route path="/curator-config-tab" element={<CuratorTeamConfig />} />
+      <Route path="/curator-dashboard" element={<CuratorTeamDashBoard />} />
+      <Route path="/manage-category" element={<ManageCategory />} />
+      <Route path="/submit-idea" element={<SubmitIdea />} />
+      <Route path="/view-idea" element={<ViewIdea />} />
+      <Route path="/upvote-idea" element={<UpvoteIdea />} />
+      <Route path="/user-config-tab" element={<UserTeamConfigTab />} />
+      <Route element={<Redirect />} />
+    </Routes>
+  );
+};

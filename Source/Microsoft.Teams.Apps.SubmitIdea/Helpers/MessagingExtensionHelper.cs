@@ -131,6 +131,11 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Helpers
                     teamPostResults = await this.teamIdeaSearchService.GetTeamIdeasAsync(IdeaSearchScope.Approved, query, userObjectId, count, skip);
                     composeExtensionResult = await this.GetTeamPostResultAsync(teamPostResults);
                     break;
+
+                case Constants.AcceptedIdeaCommandId: // Get accepted ideas.
+                    teamPostResults = await this.teamIdeaSearchService.GetTeamIdeasAsync(IdeaSearchScope.Accepted, query, userObjectId, count, skip);
+                    composeExtensionResult = await this.GetTeamPostResultAsync(teamPostResults);
+                    break;
             }
 
             return composeExtensionResult;
@@ -165,7 +170,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Helpers
                 return composeExtensionResult;
             }
 
-            var catagoryDetails = await this.categoryStorageProvider.GetCategoriesByIdsAsync(teamIdeaResults.Select(teamIdea => teamIdea.CategoryId));
+            var catagoryDetails = await this.categoryStorageProvider.GetCategoriesByIdsAsync(null, teamIdeaResults.Select(teamIdea => teamIdea.CategoryId));
 
             foreach (var teamIdea in teamIdeaResults)
             {

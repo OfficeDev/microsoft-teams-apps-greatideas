@@ -6,7 +6,7 @@ import * as React from "react";
 import { AppRoute } from "./router/router";
 import Resources from "./constants/resources";
 import * as microsoftTeams from "@microsoft/teams-js";
-import { Provider, themes } from "@fluentui/react-northstar";
+import { Provider, teamsTheme, teamsDarkTheme, teamsHighContrastTheme } from "@fluentui/react-northstar";
 import i18n from "./i18n";
 
 import "./styles/site.css";
@@ -46,7 +46,7 @@ export default class App extends React.Component<{}, IAppState> {
 	public setThemeComponent = () => {
 		if (this.state.theme === Resources.dark) {
 			return (
-				<Provider theme={themes.teamsDark}>
+				<Provider theme={teamsDarkTheme}>
 					<div className="dark-container">
 						{this.getAppDom()}
 					</div>
@@ -55,7 +55,7 @@ export default class App extends React.Component<{}, IAppState> {
 		}
 		else if (this.state.theme === Resources.contrast) {
 			return (
-				<Provider theme={themes.teamsHighContrast}>
+				<Provider theme={teamsHighContrastTheme}>
 					<div className="high-contrast-container">
 						{this.getAppDom()}
 					</div>
@@ -63,7 +63,7 @@ export default class App extends React.Component<{}, IAppState> {
 			);
 		} else {
 			return (
-				<Provider theme={themes.teams}>
+				<Provider theme={teamsTheme}>
 					<div className="default-container">
 						{this.getAppDom()}
 					</div>

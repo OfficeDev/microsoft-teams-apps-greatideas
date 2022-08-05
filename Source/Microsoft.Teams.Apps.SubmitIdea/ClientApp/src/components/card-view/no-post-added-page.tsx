@@ -18,7 +18,7 @@ interface INoIdeaAddedProps extends WithTranslation {
 }
 
 class TeamsConfigPage extends React.Component<INoIdeaAddedProps> {
-    localize: TFunction;
+    localize: TFunction|any;
     constructor(props: any) {
         super(props);
         this.localize = this.props.t;

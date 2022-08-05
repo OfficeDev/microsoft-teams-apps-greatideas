@@ -91,7 +91,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.SearchServices
         /// <summary>
         /// Flag: Has Dispose already been called?
         /// </summary>
-        private bool disposed = false;
+        private bool disposed;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IdeaSearchService"/> class.
@@ -287,7 +287,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.SearchServices
                 return;
             }
 
-            var index = new Index()
+            var index = new Microsoft.Azure.Search.Models.Index()
             {
                 Name = Constants.TeamIdeaIndexName,
                 Fields = FieldBuilder.BuildForType<IdeaEntity>(),
@@ -424,7 +424,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.SearchServices
 
                 case IdeaSearchScope.CategoriesInUse:
                     searchParameters.SearchFields = new[] { nameof(IdeaEntity.CategoryId) };
-                    searchParameters.Filter = $"{nameof(IdeaEntity.Status)} eq {(int)IdeaStatus.Pending} or {nameof(IdeaEntity.Status)} eq {(int)IdeaStatus.Approved}";
+                    searchParameters.Filter = $"{nameof(IdeaEntity.Status)} eq {(int)IdeaStatus.Pending} or {nameof(IdeaEntity.Status)} eq {(int)IdeaStatus.Approved} or {nameof(IdeaEntity.Status)} eq {(int)IdeaStatus.Accepted}";
                     searchParameters.Select = new[] { nameof(IdeaEntity.Category) };
                     break;
 

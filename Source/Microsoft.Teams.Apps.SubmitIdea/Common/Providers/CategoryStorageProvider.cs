@@ -88,9 +88,10 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
         /// <summary>
         /// This method is used to get category details by ids.
         /// </summary>
+        /// <param name="format"> Add I formatter</param>
         /// <param name="categoryIds">List of idea category ids.</param>
         /// <returns>list of all category.</returns>
-        public async Task<IEnumerable<CategoryEntity>> GetCategoriesByIdsAsync(IEnumerable<string> categoryIds)
+        public async Task<IEnumerable<CategoryEntity>> GetCategoriesByIdsAsync(IFormatProvider format, IEnumerable<string> categoryIds)
         {
             await this.EnsureInitializedAsync();
 
@@ -99,7 +100,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
             // The max supported categories are 10 and can be executed
             // If the categories are expected to increase further, then
             // it is recommended to execute it in batches.
-            string categoriesCondition = this.CreateCategoriesFilter(categoryIds);
+            string categoriesCondition = this.CreateCategoriesFilter(format, categoryIds);
 
             TableQuery<CategoryEntity> query = new TableQuery<CategoryEntity>().Where(categoriesCondition);
             TableContinuationToken continuationToken = null;
@@ -177,9 +178,10 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
         /// <summary>
         /// Get combined filter condition for user private ideas data.
         /// </summary>
+        /// <param name="format">format provider</param>
         /// <param name="categoryIds">List of user private idea id.</param>
         /// <returns>Returns combined filter for user private ideas.</returns>
-        private string CreateCategoriesFilter(IEnumerable<string> categoryIds)
+        private string CreateCategoriesFilter(IFormatProvider format, IEnumerable<string> categoryIds)
         {
             var categoryIdConditions = new List<string>();
             StringBuilder combinedCaregoryIdsFilter = new StringBuilder();
@@ -194,13 +196,12 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common.Providers
             if (categoryIdConditions.Count >= 2)
             {
                 var categories = categoryIdConditions.Take(categoryIdConditions.Count - 1).ToList();
-
                 categories.ForEach(postCondition =>
                 {
-                    combinedCaregoryIdsFilter.Append($"{postCondition} {"or"} ");
+                    combinedCaregoryIdsFilter.Append(format, $"{postCondition} {"or"} ");
                 });
 
-                combinedCaregoryIdsFilter.Append($"{categoryIdConditions.Last()}");
+                combinedCaregoryIdsFilter.Append(format, $"{categoryIdConditions.Last()}");
 
                 return combinedCaregoryIdsFilter.ToString();
             }

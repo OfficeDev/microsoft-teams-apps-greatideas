@@ -73,7 +73,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Bot
 
                 if (turnContext.Activity?.Type == ActivityTypes.Message)
                 {
-                    await turnContext.SendActivityAsync(MessageFactory.Text(this.localizer.GetString("InvalidTenantText")));
+                    await turnContext.SendActivityAsync(MessageFactory.Text(this.localizer.GetString("InvalidTenantText")), cancellationToken);
                 }
             }
             else

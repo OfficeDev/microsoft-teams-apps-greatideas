@@ -41,4 +41,4 @@ class UserAvatar extends React.Component<IUserAvatarProps> {
     }
 }
 
-export default withTranslation()(UserAvatar)
+export default withTranslation()(UserAvatar);

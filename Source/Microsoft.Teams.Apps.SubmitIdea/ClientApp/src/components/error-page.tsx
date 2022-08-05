@@ -3,14 +3,14 @@
 // </copyright>
 
 import * as React from "react";
-import { RouteComponentProps } from "react-router-dom";
 import { Text } from "@fluentui/react-northstar";
 import { WithTranslation, withTranslation } from "react-i18next";
 import { TFunction } from "i18next";
 
 import "../styles/site.css";
 
-interface IErrorPageProps extends WithTranslation, RouteComponentProps {
+interface IErrorPageProps extends WithTranslation {
+    match: any;
 }
 
 class ErrorPage extends React.Component<IErrorPageProps, {}> {

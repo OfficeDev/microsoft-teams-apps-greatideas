@@ -13,7 +13,7 @@ import { withTranslation, WithTranslation } from "react-i18next";
 import { CategoryDetails, ICategoryDetails } from "../models/category";
 import { isNullorWhiteSpace } from "../../helpers/helper";
 
-const browserHistory = createBrowserHistory({ basename: "" });
+const browserHistory = createBrowserHistory();
 
 interface IEditCategoryState {
     categoryName: string;

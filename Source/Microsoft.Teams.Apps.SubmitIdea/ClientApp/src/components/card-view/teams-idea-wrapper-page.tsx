@@ -630,9 +630,9 @@ class TeamsIdeaWrapperPage extends React.Component<WithTranslation, ICardViewSta
                 }
                 // Cards component array to be rendered in grid.
                 const cards = new Array<any>();
-
+            // Enhancement: Added Accepted Status along with Approved
             this.state.discoverPosts!.map((value: IDiscoverPost, index) => {
-                if (value.status === ApprovalStatus.Approved) {
+                if (value.status === ApprovalStatus.Approved || value.status === ApprovalStatus.Accepted) {
                     cards.push(<Col lg={3} sm={6} md={4} className="grid-column d-flex justify-content-center">
                         <Card onAddPrivatePostClick={this.handleUserPrivatePostButtonClick} index={index} cardDetails={value} onVoteClick={this.onVoteClick} onCardUpdate={this.onCardUpdate} onDeleteButtonClick={this.handleDeleteButtonClick} />
                     </Col>);

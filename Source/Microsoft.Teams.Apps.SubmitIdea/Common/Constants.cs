@@ -45,6 +45,11 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Common
         public const string ApprovedIdeaCommandId = "APPROVED";
 
         /// <summary>
+        ///  Accepted status command id in the manifest file.
+        /// </summary>
+        public const string AcceptedIdeaCommandId = "ACCEPTED";
+
+        /// <summary>
         /// Bot preference settings command to set preference for sending Weekly/Monthly notifications.
         /// </summary>
         public const string PreferenceSettings = "PREFERENCES";

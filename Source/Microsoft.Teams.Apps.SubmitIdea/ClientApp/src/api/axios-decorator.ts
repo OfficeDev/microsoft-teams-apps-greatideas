@@ -110,7 +110,7 @@ export class AxiosJWTDecorator {
 	}
 
 	private async setupAuthorizationHeader(
-		config?: AxiosRequestConfig
+		config?: AxiosRequestConfig 
 	): Promise<AxiosRequestConfig> {
 		microsoftTeams.initialize();
 

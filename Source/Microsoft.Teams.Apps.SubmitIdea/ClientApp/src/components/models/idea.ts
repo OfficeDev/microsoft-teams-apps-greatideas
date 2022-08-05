@@ -25,10 +25,12 @@ export class IdeaEntity {
     backgroundColor?: string | undefined;
 }
 
+//Enhancement: Added Accepted Status Enum
 export enum ApprovalStatus {
     Pending = 0,
     Approved = 1,
-    Rejected = 2
+    Rejected = 2,
+    Accepted = 3
 }
 
 export class UpvoteEntity {

@@ -360,7 +360,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Controllers
                     userObjectId: null);
 
                 var uniqueCategoryIds = this.ideaStorageHelper.GetCategoryIds(teamPosts);
-                var categories = await this.categoryStorageProvider.GetCategoriesByIdsAsync(uniqueCategoryIds);
+                var categories = await this.categoryStorageProvider.GetCategoriesByIdsAsync(null, uniqueCategoryIds);
                 this.RecordEvent("Team idea unique category- HTTP get call succeeded");
 
                 return this.Ok(categories);

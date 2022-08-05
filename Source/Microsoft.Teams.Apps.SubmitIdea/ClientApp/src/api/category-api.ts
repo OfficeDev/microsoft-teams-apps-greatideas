@@ -23,8 +23,9 @@ export const getAllCategories = async (): Promise<any> => {
 */
 export const postCategory = async (data: any): Promise<any> => {
 
-    let url = baseAxiosUrl + '/Category/';
-    return await axios.post(url, data, undefined);
+    let url = `${baseAxiosUrl}/Category`;
+    console.log("post url: "+url);
+    return await axios.post(url, data);
 }
 
 /**
