@@ -15,7 +15,7 @@
     "bootstrap": "4.5.0",
     "i18next": "19.4.5",
     "i18next-xhr-backend": "^3.2.2",
-    "node-sass": "^4.14.1",
+    "node-sass": "^9.0.0",
     "react": "16.13.1",
     "react-bootstrap": "1.0.1",
     "react-dom": "16.13.1",
@@ -50,7 +50,7 @@
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.4",
     "@types/react-router-dom": "^4.3.3",
-    "react-scripts": "3.4.1",
+    "react-scripts": "5.0.1",
     "typescript": "3.9.3"
   }
 }
